@@ -2,6 +2,7 @@ JSF Issue Tracker Project
 =========================
 
 <<<<<<<<<<<<<< ENGLISH  >>>>>>>>>>>>>
+-------------------------------------
 
 This project is a simple issue tracker using the following tecnologies: `JSF 2.x`, Primefaces, `CDI(OpenWebBean 1.1.4)`, `CODI(1.0.5)`, Conventions(0.8-SNAPSHOT) e `Hibernate 4.1.4` with the intention of showing some features of each tecnologies and how to integrate them in a real project.
   
@@ -63,6 +64,7 @@ Information ++
 
 
 <<<<<<<<<<<<<< Português  >>>>>>>>>>>>>
+---------------------------------------
 
 Projeto simples de uma aplicação de Issue Tracker com `JSF 2.x`, Primefaces, `CDI(OpenWebBean 1.1.4)`, `CODI(1.0.5)`, Conventions(0.8-SNAPSHOT) e `Hibernate 4.1.4` com o objetivo de explanar as principais features de cada tecnologia e como integra-las de maneira produtiva em um projeto real. 
 
