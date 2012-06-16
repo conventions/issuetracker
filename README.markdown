@@ -1,9 +1,72 @@
 JSF Issue Tracker Project
 =========================
 
+<<<<<<<<<<<<<< ENGLISH  >>>>>>>>>>>>>
+
+This project is a simple issue tracker using the following tecnologies: `JSF 2.x`, Primefaces, `CDI(OpenWebBean 1.1.4)`, `CODI(1.0.5)`, Conventions(0.8-SNAPSHOT) e `Hibernate 4.1.4` with the intension of showing some features of each tecnologies and how to integrate them in a real project.
+  
+Its (yet another version of) another version of the project https://github.com/rponte/jsf-issuetracker-project which build during the courses and trainings of **JSF 2, Spring e Hibernate** lead by [TriadWorks](http://www.triadworks.com.br).
+
+If you have any doubt or interest about TriadWorks, get in touch with them at (http://www.triadworks.com.br/contatos.html) 
+
+Configuring project database.
+
+By default the project is configured to run in Postgresql database, but as its about an ORM based app it should run in any other SQL based datatabse. 
+
+Basic steps;
+
+1. Import the project in [Eclipse Java EE IDE for Web Developers (Indigo)](http://www.eclipse.org/downloads/) or superior;  
+2. add JDBC Driver which can be found at `/WebContent/WEB-INF/lib` if you dont intend to use `PostgreSQL`;
+3. create the datasource - in tomcat add an entry in the file TOMCAT_HOME/conf/context.xml (an example can be found at folder etc/snippets/config/context.xml);
+4. create the database `issuetracker` with your tool of choice - like eg: `PGAdmin` in postgres
+5. deploy the app in `Apache Tomcat 7.x` and start tomcat;
+6. Access the application at [http://localhost:8080/issuetracker](http://localhost:8080/issuetracker];
+7. login with user:admin, pass:admin (first access this user is created);
+
+Generationg the .war
+------------------------
+1. To generate the `.war` of issuetracker just run the ant script (`build.xml`) from ecplise or in command line;
+
+		$ ant
+
+2 - after the execution the ant script will place the generated `.war` at `/target/war/snapshot/issuetracker.war`;
+3 - also you can execute the `Run As` command in ecplise by right clicking in the project instead of generating the `.war` and deploying it in tomcat;
+Informações adicionais
+
+Additional information
+------------------------
+
+* the schema of the database, `issuetracker`, will be created by `Hibernate` at first application startup time; 
+* in `/etc/lib` directory you find all libraries and dependencies of each framework;
+* in `/etc/lib/jdbc-drivers` folder you'll find some JDBC drivers like `MySQL`, `PostgreSQL` and `Oracle`;
+* in `/etc/mockups` folder you'll find the screens prototypes.
+* as im very bad designer the application css was copied(and slighted modified) from [vraptor-blank-project](http://vraptor.caelum.com.br/en) project from Caelum; 
+
+Information ++
+----------------
+
+**TriadWorks**
+- http://www.triadworks.com.br
+- http://www.triadworks.com.br/servico.html
+
+**Rafael Ponte (the JSF and Spring guy)**
+- [blog](http://www.rponte.com.br)
+- Twitter [@rponte](http://twitter.com/#!/rponte)
+
+**Rafael Pestano (the CDI adventurer)**
+- [blog](http://rpestano.wordpress.com/)
+- Twitter [@realpestano](http://twitter.com/#!/realpestano)
+- Homebrew framework used in this project (http://code.google.com/p/jsf-conventions-framework/).
+
+**JSF Group (the group where we spread our crazy ideas)**
+- https://groups.google.com/group/javasf/
+
+
+<<<<<<<<<<<<<< Português  >>>>>>>>>>>>>
+
 Projeto simples de uma aplicação de Issue Tracker com `JSF 2.x`, Primefaces, `CDI(OpenWebBean 1.1.4)`, `CODI(1.0.5)`, Conventions(0.8-SNAPSHOT) e `Hibernate 4.1.4` com o objetivo de explanar as principais features de cada tecnologia e como integra-las de maneira produtiva em um projeto real. 
 
-Esta versão é um fork do projeto https://github.com/rponte/jsf-issuetracker-project que é construído durante os cursos e treinamentos de **JSF 2, Spring e Hibernate** ministrados pela [TriadWorks](http://www.triadworks.com.br).
+Esta é mais uma versão do projeto https://github.com/rponte/jsf-issuetracker-project que é construído durante os cursos e treinamentos de **JSF 2, Spring e Hibernate** ministrados pela [TriadWorks](http://www.triadworks.com.br).
 
 Caso tenha interesse ou alguma dúvida sobre os cursos e treinamentos da TriadWorks, entre em contato com (http://www.triadworks.com.br/contatos.html).
 
@@ -53,7 +116,10 @@ Mais informações
 **Rafael Pestano**
 - Meu [blog](http://rpestano.wordpress.com/)
 - Meu Twitter [@realpestano](http://twitter.com/#!/realpestano)
-- Mini framework JavaEE6 que mantenho (http://code.google.com/p/jsf-conventions-framework/) e utilizado neste projeto
+- framework caseiro usado neste projeto (http://code.google.com/p/jsf-conventions-framework/).
+
 
 **JSF Group**
 - https://groups.google.com/group/javasf/
+
+
