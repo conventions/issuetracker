@@ -3,9 +3,9 @@ JSF Issue Tracker Project
 
 <<<<<<<<<<<<<< ENGLISH  >>>>>>>>>>>>>
 
-This project is a simple issue tracker using the following tecnologies: `JSF 2.x`, Primefaces, `CDI(OpenWebBean 1.1.4)`, `CODI(1.0.5)`, Conventions(0.8-SNAPSHOT) e `Hibernate 4.1.4` with the intension of showing some features of each tecnologies and how to integrate them in a real project.
+This project is a simple issue tracker using the following tecnologies: `JSF 2.x`, Primefaces, `CDI(OpenWebBean 1.1.4)`, `CODI(1.0.5)`, Conventions(0.8-SNAPSHOT) e `Hibernate 4.1.4` with the intention of showing some features of each tecnologies and how to integrate them in a real project.
   
-Its (yet another version of) another version of the project https://github.com/rponte/jsf-issuetracker-project which build during the courses and trainings of **JSF 2, Spring e Hibernate** lead by [TriadWorks](http://www.triadworks.com.br).
+Its (yet another version of) another version of the project https://github.com/rponte/jsf-issuetracker-project which is built during the courses and trainings of **JSF 2, Spring and Hibernate** lead by [TriadWorks](http://www.triadworks.com.br).
 
 If you have any doubt or interest about TriadWorks, get in touch with them at (http://www.triadworks.com.br/contatos.html) 
 
@@ -16,31 +16,31 @@ By default the project is configured to run in Postgresql database, but as its a
 Basic steps;
 
 1. Import the project in [Eclipse Java EE IDE for Web Developers (Indigo)](http://www.eclipse.org/downloads/) or superior;  
-2. add JDBC Driver which can be found at `/WebContent/WEB-INF/lib` if you dont intend to use `PostgreSQL`;
+2. add a JDBC Driver which can be found at `/WebContent/WEB-INF/lib` if you dont intend to use `PostgreSQL`;
 3. create the datasource - in tomcat add an entry in the file TOMCAT_HOME/conf/context.xml (an example can be found at folder etc/snippets/config/context.xml);
 4. create the database `issuetracker` with your tool of choice - like eg: `PGAdmin` in postgres
 5. deploy the app in `Apache Tomcat 7.x` and start tomcat;
 6. Access the application at [http://localhost:8080/issuetracker](http://localhost:8080/issuetracker];
 7. login with user:admin, pass:admin (first access this user is created);
 
-Generationg the .war
+Generating the .war
 ------------------------
 1. To generate the `.war` of issuetracker just run the ant script (`build.xml`) from ecplise or in command line;
 
 		$ ant
 
 2 - after the execution the ant script will place the generated `.war` at `/target/war/snapshot/issuetracker.war`;
-3 - also you can execute the `Run As` command in ecplise by right clicking in the project instead of generating the `.war` and deploying it in tomcat;
-Informações adicionais
+
+3 - also you can execute the `Run As` command in ecplise by right clicking in the project (instead of generating the `.war` and deploying it in tomcat);
 
 Additional information
 ------------------------
 
-* the schema of the database, `issuetracker`, will be created by `Hibernate` at first application startup time; 
+* the database schema , `issuetracker`, will be created by `Hibernate` at first application startup time; 
 * in `/etc/lib` directory you find all libraries and dependencies of each framework;
 * in `/etc/lib/jdbc-drivers` folder you'll find some JDBC drivers like `MySQL`, `PostgreSQL` and `Oracle`;
 * in `/etc/mockups` folder you'll find the screens prototypes.
-* as im very bad designer the application css was copied(and slighted modified) from [vraptor-blank-project](http://vraptor.caelum.com.br/en) project from Caelum; 
+* as im very bad designer the application css was copied(and slighted modified) from [vraptor-blank-project](http://vraptor.caelum.com.br/en) from Caelum; 
 
 Information ++
 ----------------
