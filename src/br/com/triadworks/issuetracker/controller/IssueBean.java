@@ -16,6 +16,7 @@ import org.primefaces.event.SelectEvent;
 
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
 import br.com.triadworks.issuetracker.model.Issue;
+import br.com.triadworks.issuetracker.model.TipoDeIssue;
 import br.com.triadworks.issuetracker.model.Usuario;
 import br.com.triadworks.issuetracker.service.IssueService;
 import br.com.triadworks.issuetracker.service.UsuarioService;
@@ -32,7 +33,6 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	
 	private String state = ESTADO_DE_PESQUISA;
 	
-	private UIForm form;
 	private Issue issue = new Issue();
 	private List<Issue> issues = new ArrayList<Issue>();
 	
@@ -60,7 +60,6 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	}
 	
 	public void lista() {
-		issues = getIssueService().listaTudo();
 		setState(ESTADO_DE_PESQUISA);
 	}
 	
@@ -129,17 +128,11 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	public void setState(String state) {
 		this.state = state;
 	}
-	public UIForm getForm() {
-		return form;
-	}
-	public void setForm(UIForm form) {
-		this.form = form;
-	}
 	
 	@Produces
 	@Named("issueTypes")
 	public List<SelectItem> getIssueTypes(){
-		return new ArrayList<SelectItem>(){{add(new SelectItem("BUG", "Bug"));add(new SelectItem("FEATURE", "Feature"));}};
+		return new ArrayList<SelectItem>(){{add(new SelectItem(TipoDeIssue.BUG.name(), "Bug"));add(new SelectItem(TipoDeIssue.FEATURE.name(), "Feature"));}};
 	}
 
 	public List<Usuario> getUsuarios() {

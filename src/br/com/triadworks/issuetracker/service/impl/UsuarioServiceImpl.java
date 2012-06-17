@@ -1,14 +1,22 @@
 package br.com.triadworks.issuetracker.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Named;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
+import org.primefaces.model.SortOrder;
 
+import br.com.triadworks.issuetracker.model.Issue;
+import br.com.triadworks.issuetracker.model.TipoDeIssue;
 import br.com.triadworks.issuetracker.model.Usuario;
 import br.com.triadworks.issuetracker.service.UsuarioService;
 
+import com.jsf.conventions.model.ConventionsDataModel;
 import com.jsf.conventions.service.impl.StandaloneHibernateService;
 
 @Named("usuarioService")
@@ -47,5 +55,5 @@ public class UsuarioServiceImpl extends StandaloneHibernateService<Usuario, Long
 				.add(Restrictions.eq("senha", senha)).uniqueResult();
 	}
 
-
+	 
 }

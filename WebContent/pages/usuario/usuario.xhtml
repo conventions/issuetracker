@@ -5,55 +5,42 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:conventions="http://java.sun.com/jsf/composite/components/conventions"
 	template="/pages/template/template_padrao.xhtml">
 	
 	<ui:define name="conteudo">
 		<div id="container" align="left">
 			<h1>Cadastro de Usuários</h1>
 			
-			<h:form binding="#{usuarioBean.form}">
+			<h:form id="inclusaoForm">
 			
 				<t:div id="blocoDePesquisa" rendered="#{usuarioBean.pesquisando}">
-					<div align="right">
-						<h:commandLink value="Novo" 
-							action="#{usuarioBean.preparaParaAdicionar}">
-							<f:ajax render="@form" />
-						</h:commandLink> &#160;
-						<h:commandButton value="Listar" 
-							action="#{usuarioBean.lista}">
-							<f:ajax render="tabela :mensagens" />
-						</h:commandButton>
-					</div>
-					<h:dataTable
+					<p:dataTable
 						id="tabela"
-						value="#{usuarioBean.usuarios}"
+						value="#{usuarioBean.dataModel}"
 						var="usuario"
-						rowClasses="odd, even">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="ID" />
-							</f:facet>
+						lazy="true" paginator="true"
+					    emptyMessage="Nenhum usuário encontrada" 
+						rowClasses="odd, even"
+						rows="5" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15,20,30">
+						<p:column headerText="ID" sortBy="#{usuario.id}" filterBy="#{usuario.id}">
 							##{usuario.id}
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Nome" />
-							</f:facet>
+						</p:column>
+						<p:column headerText="Nome" sortBy="#{usuario.nome}" filterBy="#{usuario.nome}">
 							#{usuario.nome}
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Login" />
-							</f:facet>
+						</p:column>
+						<p:column  headerText="Login" sortBy="#{usuario.login}" filterBy="#{usuario.login}">
 							#{usuario.login}
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="E-mail" />
-							</f:facet>
+						</p:column>
+						<p:column headerText="E-mail" sortBy="#{usuario.email}">
 							#{usuario.email}
-						</h:column>
-						<h:column>
+						</p:column>
+						<p:column>
 							<f:facet name="header">
 								<h:outputText value="Ações" />
 							</f:facet>
@@ -69,8 +56,20 @@
 								<f:setPropertyActionListener 
 									target="#{usuarioBean.usuario}" value="#{usuario}" />
 							</h:commandLink>
-						</h:column>
-					</h:dataTable>
+						</p:column>
+
+						<f:facet name="footer">
+							<conventions:tableFooter message="Usuários encontrados"
+								mbean="#{usuarioBean}" footerHeight="15px" renderAddButton="false" />
+						</f:facet>
+						<f:facet name="header">
+							<center>
+								<p:commandButton value="Novo" style="width:85px"
+									action="#{usuarioBean.preparaParaAdicionar}" update="@form" />
+							</center>
+						</f:facet>
+					</p:dataTable>
+					
 				</t:div>
 				
 				<t:div id="blocoDeEdicao" 

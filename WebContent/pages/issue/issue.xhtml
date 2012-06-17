@@ -79,7 +79,7 @@
 									target="#{issueBean.issue}" value="#{issue}" />
 							</h:commandLink>
 						</p:column>
-						 <f:facet name="footer">
+					  <f:facet name="footer">
                     		<conventions:tableFooter message="Issues encontradas" mbean="#{issueBean}" footerHeight="15px"  renderAddButton="false"/>
               		  </f:facet>
               		  <f:facet name="header">
@@ -169,9 +169,10 @@
 						rowClasses="odd, even"
 						selectionMode="single"
 						rowKey="#{u.id}"
+						paginato="true"
 						rows="5" paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="5,10,15,20,30"
 						>
 							<p:ajax event="rowSelect" process="@this" update=":edicaoForm:assinadoPara" listener="#{issueBean.selecionaUsuario}" oncomplete="overlay.hide();jQuery('#assinadoPara').focus();"/>

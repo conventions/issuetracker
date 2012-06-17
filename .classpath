@@ -27,7 +27,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/postgresql-9.1-901.jdbc4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.faces-2.1.7.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-3.3.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/conventions-core-0.9-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/conventions-core-0.9-SNAPSHOT.jar" sourcepath="WebContent/WEB-INF/lib/conventions-core-0.9-SNAPSHOT.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-openjdk">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
