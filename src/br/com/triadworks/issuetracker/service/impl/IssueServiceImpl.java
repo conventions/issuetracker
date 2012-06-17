@@ -95,12 +95,12 @@ public class IssueServiceImpl extends StandaloneHibernateService<Issue, Long>
 			int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, String> filters, Map<String, Object> externalFilter) {
 		DetachedCriteria dc = getDetachedCriteria();
-		
+		String nomeProjeto = null;
 		
 		// configura filtros das colunas da tabela, somente necessário se houver relacionamentos(ex:issue->projeto)
 		// ou para alterar comportamento padrão dos filtros (@see StandaloneHenericHibernateDao#addBasicFilterRestrictions)
 		if (filters != null && !filters.isEmpty()) {
-			String nomeProjeto = filters.get("projeto.nome");
+		    nomeProjeto = filters.get("projeto.nome");
 			if(nomeProjeto != null){
 				dc.createAlias("projeto", "projeto");
 				dc.add(Restrictions.ilike("projeto.nome", nomeProjeto,MatchMode.ANYWHERE));
@@ -123,6 +123,9 @@ public class IssueServiceImpl extends StandaloneHibernateService<Issue, Long>
 		//cria join para ordenar por "assinadoPara"
 		if(sortField != null && sortField.equals("assinadoPara.nome")){
 			dc.createAlias("assinadoPara", "assinadoPara",JoinType.LEFT_OUTER_JOIN);
+		}
+		if(sortField != null && sortField.equals("projeto.nome") && nomeProjeto == null){//se nome projeto != null é pq o alias ja foi criado
+			dc.createAlias("projeto", "projeto",JoinType.LEFT_OUTER_JOIN);
 		}
 		return getDao().findPaginated(first, pageSize, sortField, sortOrder,dc);
 	}
