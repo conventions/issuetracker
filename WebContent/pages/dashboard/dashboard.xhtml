@@ -4,63 +4,69 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:conventions="http://java.sun.com/jsf/composite/components/conventions"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	template="/pages/template/template_padrao.xhtml">
 	
 	<ui:define name="conteudo">
+	<h:form id="dashboardForm">
 		<div id="container" align="left">
 			<h1>Dashboard</h1>
 			<t:div id="dashboard">
-				<h:dataTable
-					id="tabela"
-					value="#{dashboardBean.issues}"
-					var="issue"
-					rowClasses="odd, even">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="ID" />
-						</f:facet>
-						<h:link value="##{issue.id}" outcome="detalhe">
-							<f:param name="id" value="#{issue.id}" />
-						</h:link>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="Sumário" />
-						</f:facet>
-						<h:link value="#{issue.sumario}" outcome="detalhe">
-							<f:param name="id" value="#{issue.id}" />
-						</h:link>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="Projeto" />
-						</f:facet>
-						#{issue.projeto.nome}
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="Tipo" />
-						</f:facet>
-						#{issue.tipo}
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="Status" />
-						</f:facet>
-						#{issue.status}
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="Ult. Atualização" />
-						</f:facet>
-						<h:outputText value="#{issue.atualizadoEm}">
-							<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-						</h:outputText>
-					</h:column>
-				</h:dataTable>
+			    <p:dataTable
+						id="tabela"
+						value="#{dashboardBean.dataModel}"
+						var="issue"
+						lazy="true" paginator="true"
+					    widgetVar="tableVar" 
+					    emptyMessage="Nenhuma issue encontrada" 
+						rowClasses="odd, even"
+						rows="5" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15,20,30"
+						>
+						<p:column headerText="ID" sortBy="#{issue.id}" filterBy="#{issue.id}">
+							<h:link value="##{issue.id}" outcome="detalhe">
+								<f:param name="id" value="#{issue.id}" />
+							</h:link>
+						</p:column>
+						<p:column headerText="Sumário" sortBy="#{issue.sumario}" filterBy="#{issue.sumario}">
+							<h:link value="#{issue.sumario}" outcome="detalhe">
+								<f:param name="id" value="#{issue.id}" />
+							</h:link>
+						</p:column>
+						<p:column headerText="Projeto" sortBy="#{issue.projeto.nome}" filterBy="#{issue.projeto.nome}">
+							 #{issue.projeto.nome}
+						</p:column>
+						<p:column sortBy="#{issue.tipo}" filterOptions="#{issueTypes}" filterBy="#{issue.tipo}">
+							<f:facet name="header">
+								<h:outputText value="Tipo" />
+							</f:facet>
+							#{issue.tipo}
+						</p:column>
+						<p:column sortBy="#{issue.status}" >
+							<f:facet name="header">
+								<h:outputText value="Status" />
+							</f:facet>
+							#{issue.status}
+						</p:column>
+						<p:column sortBy="#{issue.atualizadoEm}">
+							<f:facet name="header">
+								<h:outputText value="Ult. Atualização" />
+							</f:facet>
+							<h:outputText value="#{issue.atualizadoEm}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+							</h:outputText>
+						</p:column>
+						<f:facet name="footer">
+                    		<conventions:tableFooter message="Issues encontradas para #{usuarioLogado.login}" mbean="#{dashboardBean}" footerHeight="15px"  renderAddButton="false"/>
+              		  </f:facet>
+				 </p:dataTable>
 			</t:div>
 		</div>
+		</h:form>
 	</ui:define>
 		
 </ui:composition>

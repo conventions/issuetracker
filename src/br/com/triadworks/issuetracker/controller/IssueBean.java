@@ -23,6 +23,7 @@ import br.com.triadworks.issuetracker.service.UsuarioService;
 
 import com.jsf.conventions.bean.BaseMBean;
 import com.jsf.conventions.bean.state.CrudState;
+import com.jsf.conventions.qualifier.Service;
 
 @Named
 @ViewAccessScoped
@@ -46,7 +47,7 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 
 	@Inject
 	public IssueBean(IssueService issueService, UsuarioWeb usuarioWeb, FacesUtils facesUtils) {
-		super.setBaseService(issueService);
+		super.setBaseService(issueService);  
 		this.usuarioWeb = usuarioWeb;
 		this.facesUtils = facesUtils;
 		this.setBeanState(CrudState.FIND);

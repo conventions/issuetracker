@@ -1,5 +1,6 @@
 package br.com.triadworks.issuetracker.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -94,7 +95,18 @@ public class IssueServiceImpl extends StandaloneHibernateService<Issue, Long>
 	public ConventionsDataModel<Issue> configFindPaginated(int first,
 			int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, String> filters, Map<String, Object> externalFilter) {
+		
+		
 		DetachedCriteria dc = getDetachedCriteria();
+		
+		//configura paginação para o dashboard
+		Long idUsuario = (Long) externalFilter.get("uID");//parametro passado atraves do mapa de parametros {@see DashboardBean#preload()}
+		if(idUsuario != null){
+			dc.createAlias("assinadoPara", "assinadoPara");
+			dc.add(Restrictions.eq("assinadoPara.id", idUsuario));
+		}
+		
+		
 		String nomeProjeto = null;
 		
 		// configura filtros das colunas da tabela, somente necessário se houver relacionamentos(ex:issue->projeto)
@@ -121,7 +133,7 @@ public class IssueServiceImpl extends StandaloneHibernateService<Issue, Long>
 			}
 		}
 		//cria join para ordenar por "assinadoPara"
-		if(sortField != null && sortField.equals("assinadoPara.nome")){
+		if(sortField != null && sortField.equals("assinadoPara.nome") && idUsuario == null){ //se idUsuario for != null é pq o alias ja foi criado
 			dc.createAlias("assinadoPara", "assinadoPara",JoinType.LEFT_OUTER_JOIN);
 		}
 		if(sortField != null && sortField.equals("projeto.nome") && nomeProjeto == null){//se nome projeto != null é pq o alias ja foi criado

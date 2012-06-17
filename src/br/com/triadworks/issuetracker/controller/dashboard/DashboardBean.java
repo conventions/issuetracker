@@ -14,16 +14,14 @@ import br.com.triadworks.issuetracker.controller.UsuarioWeb;
 import br.com.triadworks.issuetracker.model.Issue;
 import br.com.triadworks.issuetracker.service.IssueService;
 
+import com.jsf.conventions.bean.BaseMBean;
+
 @Named
 @ViewAccessScoped
-public class DashboardBean implements Serializable{
+public class DashboardBean extends BaseMBean<Issue> implements Serializable{
 
-	private List<Issue> issues = new ArrayList<Issue>();
 	
-	private IssueService issueService;
 	private UsuarioWeb usuarioWeb;
-	
-	
 	
 	public DashboardBean() {
 		 
@@ -31,18 +29,19 @@ public class DashboardBean implements Serializable{
 
 	@Inject
 	public DashboardBean(IssueService issueService, UsuarioWeb usuarioWeb) {
-		this.issueService = issueService;
+		super.setBaseService(issueService);
 		this.usuarioWeb = usuarioWeb;
 	}
 	
+	/**
+	 * coloca id do usuario no mapa para issueService acessar posteriormente
+	 * quando for configurar a paginação(configFindPaginated)
+	 */
 	@PostConstruct
 	public void preload() {
 		Long id = usuarioWeb.getUsuario().getId();
-		issues = issueService.getIssuesDoUsuario(id);
-	}
-	
-	public List<Issue> getIssues() {
-		return issues;
+		getFilter().put("uID", id);
+//		issues = issueService.getIssuesDoUsuario(id);
 	}
 	
 }

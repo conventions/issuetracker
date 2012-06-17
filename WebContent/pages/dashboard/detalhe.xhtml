@@ -13,20 +13,22 @@
 		<!-- Maneira Simples -->
 		<!-- Sem a utilização de um converter e facilidades do componente f:viewParam -->
 		<!-- 
+		
 		<f:metadata>
 	        <f:viewParam name="id" value="#{detalheDaIssueBean.id}" />
 	        <f:event type="preRenderView" listener="#{detalheDaIssueBean.init}" />
 	    </f:metadata>
 	     -->	
-		
 		<f:metadata>
 			<!-- Atente para gambis no atributo required. -->
 			<!-- Mais um bug http://java.net/jira/browse/JAVASERVERFACES-1532 #jsfsucks -->
 	        <f:viewParam name="id" value="#{detalheDaIssueBean.issue}"
 				converterMessage="Issue não encontrada."
+				converter="issueConverter"
 				required="#{detalheDaIssueBean.issue == null}" 
 				requiredMessage="ID da issue inválida, por favor use um link de dentro do sistema." />
 	    </f:metadata>
+		
 	
 		<t:div id="container" style="text-align:left;">
 			<h1>
