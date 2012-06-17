@@ -25,8 +25,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.sun.istack.internal.NotNull;
-
 @Entity
 public class Issue implements Serializable {
 
