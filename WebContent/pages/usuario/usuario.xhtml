@@ -74,52 +74,54 @@
 				
 				<t:div id="blocoDeEdicao" 
 					rendered="#{not usuarioBean.pesquisando}">
-					<h:outputLabel value="Nome" for="nome" />
-					<h:inputText id="nome" styleClass="texto-longo"
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" styleClass="texto-longo"
 						value="#{usuarioBean.usuario.nome}" 
 						label="Nome" 
 						required="true" />
-					<h:outputLabel value="Login" for="login" />
-					<h:inputText id="login" 
+					<p:outputLabel value="Login" for="login" />
+					<p:inputText id="login" 
 						value="#{usuarioBean.usuario.login}" 
 						label="Login"
 						required="true">
 						<f:validateLength minimum="4" />
-					</h:inputText>
-					<h:outputLabel value="E-mail" for="email" />
-					<h:inputText id="email" 
+					</p:inputText>
+					<p:outputLabel value="E-mail" for="email" />
+					<p:inputText id="email" 
 						value="#{usuarioBean.usuario.email}" 
 						label="E-mail" 
 						required="true" />
-					<fieldset class="confirma-senha">
-						<legend>Entre com a senha e confirmação de senha</legend>
-						<h:outputLabel value="Senha" for="senha" />
-						<h:inputSecret id="senha" 
+					<p:fieldset legend="Entre com a senha e confirmação de senha" styleClass="confirma-senha">
+						<p:outputLabel value="Senha" for="senha" />
+						<p:password id="senha" 
 							value="#{usuarioBean.usuario.senha}" 
 							label="Senha" 
 							required="true" 
 							redisplay="true" />
-						<h:outputLabel value="Confirma" for="confirmacaoDeSenha" />
-						<h:inputSecret id="confirmacaoDeSenha" 
+						<p:outputLabel value="Confirma" for="confirmacaoDeSenha" />
+						<p:password id="confirmacaoDeSenha" 
 							value="#{usuarioBean.confirmacaoDeSenha}"
 							label="Confirma" 
 							required="true" />
-					</fieldset>
+					</p:fieldset>
 					<div align="right">
 						<h:commandLink value="Voltar"
 							immediate="true" 
 							action="#{usuarioBean.voltar}" >
 							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetEditableValues for="@form"/>
 						</h:commandLink> &#160;
 						<h:commandButton value="Inserir" 
 							action="#{usuarioBean.adiciona}"
 							rendered="#{usuarioBean.adicionando}">
 							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetEditableValues for="@form"/>
 						</h:commandButton>
 						<h:commandButton value="Alterar" 
 							action="#{usuarioBean.altera}"
 							rendered="#{usuarioBean.editando}">
 							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetEditableValues for="@form"/>
 						</h:commandButton>
 					</div>
 				</t:div>
