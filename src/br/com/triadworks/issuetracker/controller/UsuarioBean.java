@@ -33,6 +33,7 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 	@Inject
 	public void setService(UsuarioService usuarioService) {
 		super.setBaseService(usuarioService);
+		super.setFindState();
 	}
 
 	public UsuarioService getUsuarioService() {

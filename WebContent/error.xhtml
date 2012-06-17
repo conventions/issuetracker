@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="pages/template/template_padrao.xhtml">
+        
+    
+	<ui:define name="conteudo">
+	
+            <center>
+                    <h:link value="Ocorreu um erro inesperado - clique aqui para ir para página inicial" 
+                            style="color: red;font-weight: bold;text-transform: uppercase"
+                            outcome="home.xhtml"/>
+            </center>
+           <p:panel header="Detalhe do erro" style="overflow: auto" toggleable="true" collapsed="true" closeTitle="Error">  
+               
+             Erro: <span style="font-size14px; color: red;">#{errorName}</span>    
+            <p:tabView >    
+                <p:tab title="Mensagem">    
+                       <h:outputText value="#{errorMessage}" style="font-size: 1.2em;color:navy;" />    
+                </p:tab>    
+                <p:tab title="Detalhe">    
+                    <div style="overflow: auto; height: 300px; width: 700px;">    
+                        #{stacktrace}  
+                    </div>    
+                </p:tab>    
+            </p:tabView>    
+        </p:panel>    
+
+	</ui:define>
+</ui:composition>
