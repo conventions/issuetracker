@@ -1,25 +1,17 @@
-package br.com.triadworks.issuetracker.dao.impl;
+package br.com.triadworks.issuetracker.service.impl;
 
 import java.util.List;
 
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.Dependent;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
-import org.apache.myfaces.extensions.cdi.jpa.api.Transactional;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.triadworks.issuetracker.dao.UsuarioService;
-import br.com.triadworks.issuetracker.model.Projeto;
 import br.com.triadworks.issuetracker.model.Usuario;
+import br.com.triadworks.issuetracker.service.UsuarioService;
 
 import com.jsf.conventions.service.impl.StandaloneHibernateService;
 
-@Named("usuarioDao")
+@Named("usuarioService")
 public class UsuarioServiceImpl extends StandaloneHibernateService<Usuario, Long> implements UsuarioService {
 
 

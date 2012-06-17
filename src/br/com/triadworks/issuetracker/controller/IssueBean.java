@@ -12,17 +12,19 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
-
-import com.jsf.conventions.bean.AbstractBaseMBean;
+import org.primefaces.event.SelectEvent;
 
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
-import br.com.triadworks.issuetracker.dao.IssueService;
 import br.com.triadworks.issuetracker.model.Issue;
-import br.com.triadworks.issuetracker.qualifier.UsuarioLogado;
+import br.com.triadworks.issuetracker.model.Usuario;
+import br.com.triadworks.issuetracker.service.IssueService;
+import br.com.triadworks.issuetracker.service.UsuarioService;
+
+import com.jsf.conventions.bean.BaseMBean;
 
 @Named
 @ViewAccessScoped
-public class IssueBean extends AbstractBaseMBean<Issue> implements Serializable{
+public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	
 	private static final String ESTADO_DE_NOVO = "_novo";
 	private static final String ESTADO_DE_EDICAO = "_edicao";
@@ -36,6 +38,10 @@ public class IssueBean extends AbstractBaseMBean<Issue> implements Serializable{
 	
 	private UsuarioWeb usuarioWeb;
 	private FacesUtils facesUtils;
+	
+	private List<Usuario> usuarios;
+	@Inject
+	private UsuarioService usuarioService;
 	
 	
    //contrutor padrao necessario para o container cdi "bootar"
@@ -64,7 +70,6 @@ public class IssueBean extends AbstractBaseMBean<Issue> implements Serializable{
 //		issue.setAssinadoPara(new Usuario());  // não mais necessário por causa do converter
 		issue.setReportadoPor(usuarioWeb.getUsuario());
 		issue.setReportadoEm(new Date());
-		facesUtils.cleanSubmittedValues(form); // limpa arvore
 		setState(ESTADO_DE_NOVO);
 	}
 	
@@ -82,7 +87,6 @@ public class IssueBean extends AbstractBaseMBean<Issue> implements Serializable{
 	
 	public void preparaParaAlterar(Issue projeto) {
 		this.issue = getIssueService().carrega(projeto.getId()); // evita LazyInitializationException
-		facesUtils.cleanSubmittedValues(form); // limpa arvore
 		setState(ESTADO_DE_EDICAO);
 	}
 	
@@ -94,7 +98,6 @@ public class IssueBean extends AbstractBaseMBean<Issue> implements Serializable{
 	
 	public void voltar() {
 		this.issue = new Issue();
-		facesUtils.cleanSubmittedValues(form); // limpa arvore
 		lista();
 	}
 	
@@ -138,6 +141,22 @@ public class IssueBean extends AbstractBaseMBean<Issue> implements Serializable{
 	public List<SelectItem> getIssueTypes(){
 		return new ArrayList<SelectItem>(){{add(new SelectItem("BUG", "Bug"));add(new SelectItem("FEATURE", "Feature"));}};
 	}
+
+	public List<Usuario> getUsuarios() {
+		if(usuarios == null){
+			usuarios = usuarioService.listaTudo();
+		}
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+	public void selecionaUsuario(SelectEvent event){
+		issue.setAssinadoPara((Usuario) event.getObject());
+	}
+	
 	
 }
 

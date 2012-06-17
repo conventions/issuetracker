@@ -6,33 +6,26 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:conventions="http://java.sun.com/jsf/composite/components/conventions"
 	template="/pages/template/template_padrao.xhtml">
 	
 	<ui:define name="conteudo">
 		<div id="container" align="left">
 			<h1>Cadastro de Issue</h1>
-			
-			<h:form binding="#{issueBean.form}">
-			
+			<h:form id="edicaoForm">
 				<t:div id="blocoDePesquisa" rendered="#{issueBean.pesquisando}">
-					<div align="right">
-						<h:commandLink value="Novo" 
-							action="#{issueBean.preparaParaAdicionar}">
-							<p:ajax update="@form" />
-						</h:commandLink> &#160;
-					</div>
 					<p:dataTable
 						id="tabela"
 						value="#{issueBean.dataModel}"
 						var="issue"
-						lazy="true"
+						lazy="true" paginator="true"
 					    widgetVar="tableVar" 
 					    emptyMessage="Nenhuma issue encontrada" 
 						rowClasses="odd, even"
 						rows="5" paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="5,10,15,20,30"
 						>
 						<p:column headerText="ID" sortBy="#{issue.id}" filterBy="#{issue.id}">
@@ -87,85 +80,117 @@
 							</h:commandLink>
 						</p:column>
 						 <f:facet name="footer">
-                    		<conventions:tableFooter message="Issues encontradas" mbean="#{issueBean}" footerHeight="15px" renderAddButton="false" />
+                    		<conventions:tableFooter message="Issues encontradas" mbean="#{issueBean}" footerHeight="15px"  renderAddButton="false"/>
+              		  </f:facet>
+              		  <f:facet name="header">
+              		    <center>
+              		    	<p:commandButton value="Novo" style="width:85px" action="#{issueBean.preparaParaAdicionar}" update="@form"/>  
+              		    </center>
               		  </f:facet>
 					</p:dataTable>
 				</t:div>
 				
 				<t:div id="blocoDeEdicao" 
 					rendered="#{not issueBean.pesquisando}">
-					<h:outputLabel value="Sumário" for="sumario" />
-					<h:inputText id="sumario" styleClass="texto-longo"
+					<p:outputLabel value="Sumário" for="sumario" />
+					<p:inputText id="sumario" styleClass="texto-longo"
 						value="#{issueBean.issue.sumario}" 
 						label="Sumário" 
 						required="true" />
-					<h:outputLabel value="Descrição" for="descricao" />
-					<h:inputTextarea id="descricao" rows="3" 
+					<p:outputLabel value="Descrição" for="descricao" />
+					<p:inputTextarea id="descricao" rows="3" 
 						required="true" label="Descrição" 
 						value="#{issueBean.issue.descricao}" />
 						
-					<h:outputLabel value="Projeto" for="projeto" />
-					<h:selectOneMenu id="projeto" label="Projeto"
-						value="#{issueBean.issue.projeto}"
-						required="true" disabled="#{issueBean.editando}">
-						<f:selectItem itemLabel="Selecione um projeto" noSelectionOption="true" />
-						<f:selectItems value="#{projetoDao.listaTudo()}" var="o" 
-							itemLabel="#{o.nome}" itemValue="#{o}" />
-					</h:selectOneMenu>
+					<p:outputLabel value="Projeto" for="projeto:comboOneMenu"/>
+					<conventions:combo value="#{issueBean.issue.projeto}" 
+									list="#{projetoService.listaTudo()}" 
+									required="true"
+									requiredMessage="Projeto: campo é obrigatório"
+									id="projeto"
+									emptyMessage="Selecione um projeto" 
+									converter="projetoConverter"/>
 					
-					<h:outputLabel value="Tipo" for="tipo" />
-					<h:selectOneRadio id="tipo" label="Tipo"
+					<p:outputLabel value="Tipo" for="tipo" />
+					<p:selectOneRadio id="tipo" label="Tipo"
 						required="true" layout="pageDirection"
 						value="#{issueBean.issue.tipo}"
 						disabled="#{issueBean.editando}">
 						<f:selectItems value="#{issueTypes}"/>
-					</h:selectOneRadio>
+					</p:selectOneRadio>
 					
-					<h:outputLabel value="Reportado em" for="reportadoEm" />
-					<h:inputText id="reportadoEm" 
+					<p:outputLabel value="Reportado em" for="reportadoEm" />
+					<p:inputText id="reportadoEm" 
 						value="#{issueBean.issue.reportadoEm}" 
 						label="Reportado em" 
 						required="true" disabled="#{issueBean.editando}">
 						<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-					</h:inputText>
+					</p:inputText>
 					
-					<h:outputLabel value="Reportado por" for="reportadoPor" />
-					<h:inputText id="reportadoPor" 
+					<p:outputLabel value="Reportado por" for="reportadoPor" />
+					<p:inputText id="reportadoPor" 
 						value="#{issueBean.issue.reportadoPor.nome}" 
 						label="Reportado por" 
 						required="true" disabled="true" />
 						
-					<h:outputLabel value="Assinado para" for="assinadoPara" />
-					<h:selectOneMenu id="assinadoPara" label="Assinado para"
-						value="#{issueBean.issue.assinadoPara}"
-						required="true">
-						<f:selectItem itemLabel="Selecione um usuário" noSelectionOption="true" itemValue="#{null}"/>
-						<f:selectItems value="#{usuarioDao.listaTudo()}" var="o" 
-							itemLabel="#{o.nome}" itemValue="#{o}" />
-					</h:selectOneMenu>
-						
+					<p:outputLabel value="Assinado para" for="assinadoPara" />
+					<p:inputText value="#{issueBean.issue.assinadoPara}" 
+					             id="assinadoPara" 
+					             readonly="true" 
+					             required="true" 
+								 converter="usuarioConverter"/> 
+					
 					<div align="right">
 						<h:commandLink value="Voltar"
 							immediate="true" 
 							action="#{issueBean.voltar}" >
+					        <pe:resetEditableValues for="@form"/>  
 							<f:ajax execute="@form" render="@form" />
 						</h:commandLink> &#160;
 						<h:commandButton value="Inserir" 
 							action="#{issueBean.adiciona}"
 							rendered="#{issueBean.adicionando}">
+							 <pe:resetEditableValues for="@form"/>  
 							<p:ajax process="@form" update="@form" />
 						</h:commandButton>
 						<h:commandButton value="Alterar" 
 							action="#{issueBean.altera}"
 							rendered="#{issueBean.editando}">
+							 <pe:resetEditableValues for="@form"/>  
 							<p:ajax process="@form" update="@form" />
 						</h:commandButton>
 					</div>
 				</t:div>
-			
+				 <p:overlayPanel id="overlayPanel" appendToBody="true" for="assinadoPara" hideEffect="explode"  showEffect="fade" dynamic="true" widgetVar="overlay">
+				 		<p:dataTable
+						value="#{issueBean.usuarios}"
+						var="u"
+					    emptyMessage="Nenhum usuário encontrado" 
+						rowClasses="odd, even"
+						selectionMode="single"
+						rowKey="#{u.id}"
+						rows="5" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+                        rowsPerPageTemplate="5,10,15,20,30"
+						>
+							<p:ajax event="rowSelect" process="@this" update=":edicaoForm:assinadoPara" listener="#{issueBean.selecionaUsuario}" oncomplete="overlay.hide();jQuery('#assinadoPara').focus();"/>
+							<p:column headerText="Nome" sortBy="#{u.nome}" filterBy="#{u.nome}">
+								 #{u.nome}
+							</p:column>
+							<p:column headerText="Login" sortBy="#{u.login}" filterBy="#{u.login}">
+								 #{u.login}
+							</p:column>
+							<p:column headerText="E-mail" sortBy="#{u.email}" filterBy="#{u.email}">
+								 #{u.email}
+							</p:column>
+						</p:dataTable>
+				 </p:overlayPanel>  	
 			</h:form>
 			
 		</div>
+		
+		
 	</ui:define>
 		
 </ui:composition>

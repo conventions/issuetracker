@@ -1,44 +1,22 @@
 package br.com.triadworks.issuetracker.controller.converter;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
 import org.apache.myfaces.extensions.cdi.core.api.Advanced;
 
-import br.com.triadworks.issuetracker.dao.ProjetoService;
 import br.com.triadworks.issuetracker.model.Projeto;
+import br.com.triadworks.issuetracker.service.ProjetoService;
 
-@FacesConverter(forClass=Projeto.class)
+import com.jsf.conventions.converter.AbstractBaseConverter;
+
 @Advanced
-public class ProjetoConverter implements Converter {
+@FacesConverter(value="projetoConverter",forClass=Projeto.class)
+public class ProjetoConverter extends AbstractBaseConverter{
 
-	@Inject
-	private ProjetoService dao;
 	
-	@Override
-	public Object getAsObject(FacesContext ctx, UIComponent component, String value) {
-		
-		if (value == null)
-			return null;
-		
-		Long id = new Long(value);
-		
-		
-		Projeto projeto = dao.carrega(id);
-		return projeto;
-	}
-
-	@Override
-	public String getAsString(FacesContext ctx, UIComponent component, Object value) {
-		
-		if (value == null)
-			return null;
-		
-		Projeto projeto = (Projeto) value;
-		return projeto.getId().toString();
-	}
-
+	@Inject
+	 public void setService(ProjetoService projetoService){
+		 super.setBaseService(projetoService);
+	 }
 }

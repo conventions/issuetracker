@@ -8,36 +8,19 @@ import javax.inject.Inject;
 
 import org.apache.myfaces.extensions.cdi.core.api.Advanced;
 
-import br.com.triadworks.issuetracker.dao.IssueService;
-import br.com.triadworks.issuetracker.model.Issue;
+import com.jsf.conventions.converter.AbstractBaseConverter;
 
-@FacesConverter(forClass=Issue.class)
+import br.com.triadworks.issuetracker.model.Issue;
+import br.com.triadworks.issuetracker.service.IssueService;
+
 @Advanced
-public class IssueConverter implements Converter {
+@FacesConverter(value="issueService",forClass=Issue.class)
+public class IssueConverter extends AbstractBaseConverter{
+
 
 	@Inject
-	private IssueService dao;
-	
-	@Override
-	public Object getAsObject(FacesContext ctx, UIComponent component, String value) {
-		
-		if (value == null)
-			return null;
-		
-		Long id = new Long(value);
-		
-		Issue issue = dao.carrega(id);
-		return issue;
-	}
-
-	@Override
-	public String getAsString(FacesContext ctx, UIComponent component, Object value) {
-		
-		if (value == null)
-			return null;
-		
-		Issue issue = (Issue) value;
-		return issue.getId().toString();
+	public void setService(IssueService service){
+		super.setBaseService(service);
 	}
 
 }

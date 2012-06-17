@@ -22,6 +22,7 @@
 			<default-locale>pt_BR</default-locale>
 			<supported-locale>pt_BR</supported-locale>
 		</locale-config>
+		 <action-listener>com.jsf.conventions.exception.ConventionsActionListenerImpl</action-listener>  
     </application>
     
     <!-- 

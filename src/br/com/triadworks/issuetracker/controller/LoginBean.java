@@ -5,16 +5,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
-
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
-import br.com.triadworks.issuetracker.dao.UsuarioService;
 import br.com.triadworks.issuetracker.model.Usuario;
 import br.com.triadworks.issuetracker.service.Autenticador;
+import br.com.triadworks.issuetracker.service.UsuarioService;
 
 @Named
 @RequestScoped
@@ -33,7 +30,7 @@ public class LoginBean implements Serializable {
 	private FacesUtils facesUtils;
 
 	@Inject
-	private UsuarioService usuarioDao;
+	private UsuarioService usuarioService;
 
 	public String logar() {
 
@@ -49,14 +46,14 @@ public class LoginBean implements Serializable {
 
 	@PostConstruct
 	public void initUser() {
-		List<Usuario> usuarios = usuarioDao.listaTudo();
+		List<Usuario> usuarios = usuarioService.listaTudo();
 		if (usuarios == null || usuarios.isEmpty()) {
 			Usuario admin = new Usuario();
 			admin.setEmail("admin@admin.com");
 			admin.setLogin("admin");
 			admin.setSenha("admin");
 			admin.setNome("Administrator Godlike");
-			usuarioDao.salva(admin);
+			usuarioService.salva(admin);
 		}
 	}
 

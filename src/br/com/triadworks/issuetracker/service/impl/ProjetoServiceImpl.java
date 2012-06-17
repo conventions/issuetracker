@@ -1,15 +1,15 @@
-package br.com.triadworks.issuetracker.dao.impl;
+package br.com.triadworks.issuetracker.service.impl;
 
 import java.util.List;
 
 import javax.inject.Named;
 
-import br.com.triadworks.issuetracker.dao.ProjetoService;
 import br.com.triadworks.issuetracker.model.Projeto;
+import br.com.triadworks.issuetracker.service.ProjetoService;
 
 import com.jsf.conventions.service.impl.StandaloneHibernateService;
 
-@Named("projetoDao")//é acessado diretamente na tela(combo de projetos)
+@Named("projetoService")//é acessado diretamente na tela(combo de projetos)
 public class ProjetoServiceImpl extends StandaloneHibernateService<Projeto, Long> implements ProjetoService {
 
 

@@ -11,9 +11,8 @@ import javax.inject.Named;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import br.com.triadworks.issuetracker.controller.UsuarioWeb;
-import br.com.triadworks.issuetracker.dao.IssueService;
 import br.com.triadworks.issuetracker.model.Issue;
-import br.com.triadworks.issuetracker.qualifier.UsuarioLogado;
+import br.com.triadworks.issuetracker.service.IssueService;
 
 @Named
 @ViewAccessScoped
@@ -21,7 +20,7 @@ public class DashboardBean implements Serializable{
 
 	private List<Issue> issues = new ArrayList<Issue>();
 	
-	private IssueService issueDao;
+	private IssueService issueService;
 	private UsuarioWeb usuarioWeb;
 	
 	
@@ -31,15 +30,15 @@ public class DashboardBean implements Serializable{
 	}
 
 	@Inject
-	public DashboardBean(IssueService issueDao, UsuarioWeb usuarioWeb) {
-		this.issueDao = issueDao;
+	public DashboardBean(IssueService issueService, UsuarioWeb usuarioWeb) {
+		this.issueService = issueService;
 		this.usuarioWeb = usuarioWeb;
 	}
 	
 	@PostConstruct
 	public void preload() {
 		Long id = usuarioWeb.getUsuario().getId();
-		issues = issueDao.getIssuesDoUsuario(id);
+		issues = issueService.getIssuesDoUsuario(id);
 	}
 	
 	public List<Issue> getIssues() {

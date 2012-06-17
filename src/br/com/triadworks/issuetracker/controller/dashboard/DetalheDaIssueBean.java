@@ -9,10 +9,9 @@ import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessS
 
 import br.com.triadworks.issuetracker.controller.UsuarioWeb;
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
-import br.com.triadworks.issuetracker.dao.IssueService;
 import br.com.triadworks.issuetracker.model.Comentario;
 import br.com.triadworks.issuetracker.model.Issue;
-import br.com.triadworks.issuetracker.qualifier.UsuarioLogado;
+import br.com.triadworks.issuetracker.service.IssueService;
 
 @Named
 @ViewAccessScoped
@@ -22,7 +21,7 @@ public class DetalheDaIssueBean implements Serializable{
 	private Issue issue;
 	private Comentario comentario = new Comentario();
 	
-	private IssueService issueDao;
+	private IssueService issueService;
 	private UsuarioWeb usuarioWeb;
 	private FacesUtils facesUtils;
 	
@@ -33,8 +32,8 @@ public class DetalheDaIssueBean implements Serializable{
 	}
 
 	@Inject
-	public DetalheDaIssueBean(IssueService issueDao, UsuarioWeb usuarioWeb, FacesUtils facesUtils) {
-		this.issueDao = issueDao;
+	public DetalheDaIssueBean(IssueService issueService, UsuarioWeb usuarioWeb, FacesUtils facesUtils) {
+		this.issueService = issueService;
 		this.usuarioWeb = usuarioWeb;
 		this.facesUtils = facesUtils;
 	}
@@ -50,7 +49,7 @@ public class DetalheDaIssueBean implements Serializable{
 			return;
 		}
 		
-		issue = issueDao.carrega(id);
+		issue = issueService.carrega(id);
 		if (issue == null) {
 			String mensagem = "Issue com ID #" + id + " não encontrada.";
 			facesUtils.adicionaMensagemDeErro(mensagem);
@@ -62,7 +61,7 @@ public class DetalheDaIssueBean implements Serializable{
 	 */
 	public void comentaIssue() {
 		comentario.setAutor(usuarioWeb.getUsuario());
-		issueDao.comenta(issue.getId(), comentario);
+		issueService.comenta(issue.getId(), comentario);
 		limpa();
 	}
 	
@@ -71,7 +70,7 @@ public class DetalheDaIssueBean implements Serializable{
 	 */
 	public void fechaIssue() {
 		comentario.setAutor(usuarioWeb.getUsuario());
-		issueDao.fecha(issue.getId(), comentario);
+		issueService.fecha(issue.getId(), comentario);
 		limpa();
 	}
 	
@@ -79,7 +78,7 @@ public class DetalheDaIssueBean implements Serializable{
 	 * Limpa comentário e recarrega issue, pois a issue estava detached.
 	 */
 	private void limpa() {
-		issue = issueDao.carrega(issue.getId());
+		issue = issueService.carrega(issue.getId());
 		comentario = new Comentario();
 	}
 	

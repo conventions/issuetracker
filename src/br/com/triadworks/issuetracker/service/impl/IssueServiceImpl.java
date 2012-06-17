@@ -1,4 +1,4 @@
-package br.com.triadworks.issuetracker.dao.impl;
+package br.com.triadworks.issuetracker.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -12,15 +12,17 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.primefaces.model.SortOrder;
 
-import br.com.triadworks.issuetracker.dao.IssueService;
 import br.com.triadworks.issuetracker.model.Comentario;
 import br.com.triadworks.issuetracker.model.Issue;
 import br.com.triadworks.issuetracker.model.TipoDeIssue;
+import br.com.triadworks.issuetracker.service.IssueService;
 
+import com.jsf.conventions.exception.BusinessException;
 import com.jsf.conventions.model.ConventionsDataModel;
 import com.jsf.conventions.service.impl.StandaloneHibernateService;
+import com.jsf.conventions.util.MessagesController;
 
-@Named("issueDao")
+@Named("issueService")
 public class IssueServiceImpl extends StandaloneHibernateService<Issue, Long>
 		implements IssueService {
 
@@ -62,6 +64,15 @@ public class IssueServiceImpl extends StandaloneHibernateService<Issue, Long>
 	public void salva(Issue issue) {
 		super.store(issue);
 
+	}
+	
+
+	@Override
+	public void beforeStore(Issue issue) {
+		if(issue.getAssinadoPara() == null){
+			 throw new BusinessException("Assinado para: campo obrigatório");
+		}
+		super.beforeStore(issue);
 	}
 
 	@Override

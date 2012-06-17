@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIForm;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,8 +11,8 @@ import javax.inject.Named;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
-import br.com.triadworks.issuetracker.dao.ProjetoService;
 import br.com.triadworks.issuetracker.model.Projeto;
+import br.com.triadworks.issuetracker.service.ProjetoService;
 
 @ViewAccessScoped
 @Named
@@ -32,48 +30,45 @@ public class ProjetoBean implements Serializable{
 	private UIForm form;
 	
 	@Inject
-	private ProjetoService projetoDao;
+	private ProjetoService projetoService;
 	@Inject
 	private FacesUtils facesUtils;
 	
 	public void lista() {
-		projetos = projetoDao.listaTudo();
+		projetos = projetoService.listaTudo();
 		setState(ESTADO_DE_PESQUISA);
 	}
 	
 	public void preparaParaAdicionar() {
 		this.projeto = new Projeto();
-		facesUtils.cleanSubmittedValues(form); // limpa arvore
 		setState(ESTADO_DE_NOVO);
 	}
 	
 	public void adiciona() {
-		projetoDao.salva(projeto);
+		projetoService.salva(projeto);
 		facesUtils.adicionaMensagemDeInformacao("Projeto adicionado com sucesso!");
 		lista();
 	}
 	
 	public void remove() {
-		projetoDao.remove(projeto);
+		projetoService.remove(projeto);
 		facesUtils.adicionaMensagemDeInformacao("Projeto removido com sucesso!");
 		lista();
 	}
 	
 	public void preparaParaAlterar(Projeto projeto) {
-		this.projeto = projetoDao.carrega(projeto.getId()); // evita LazyInitializationException
-		facesUtils.cleanSubmittedValues(form); // limpa arvore
+		this.projeto = projetoService.carrega(projeto.getId()); // evita LazyInitializationException
 		setState(ESTADO_DE_EDICAO);
 	}
 	
 	public void altera() {
-		projetoDao.atualiza(projeto);
+		projetoService.atualiza(projeto);
 		facesUtils.adicionaMensagemDeInformacao("Projeto atualizado com sucesso!");
 		lista();
 	}
 	
 	public void voltar() {
 		this.projeto = new Projeto();
-		facesUtils.cleanSubmittedValues(form); // limpa arvore
 		lista();
 	}
 	
@@ -91,7 +86,7 @@ public class ProjetoBean implements Serializable{
 		return projetos;
 	}
 	public void setProjetoDao(ProjetoService projetoDao) {
-		this.projetoDao = projetoDao;
+		this.projetoService = projetoDao;
 	}
 	public Projeto getprojeto() {
 		return projeto;

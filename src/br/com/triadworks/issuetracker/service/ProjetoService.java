@@ -1,4 +1,4 @@
-package br.com.triadworks.issuetracker.dao;
+package br.com.triadworks.issuetracker.service;
 
 import java.util.List;
 

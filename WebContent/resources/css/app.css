@@ -34,6 +34,27 @@ input, label, select, textarea {
 	color: #444;
 }
 
+.ui-paginator-rpp-options {
+     
+        width: auto !important;
+        height:25px !important;
+        display:inline !important;
+        font-size: 12px !important;
+        text-align:center;
+        padding: 0px !important;
+}
+ui-paginator-rpp-options option {
+    background-image: none;
+    border:0 none;
+    width: 35px !important;
+    box-shadow:none;
+    display:inline;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+
+
 input.texto-longo {
 	width:600px;
 }

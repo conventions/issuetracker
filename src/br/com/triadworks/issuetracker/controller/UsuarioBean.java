@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIForm;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,8 +11,8 @@ import javax.inject.Named;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
-import br.com.triadworks.issuetracker.dao.UsuarioService;
 import br.com.triadworks.issuetracker.model.Usuario;
+import br.com.triadworks.issuetracker.service.UsuarioService;
 
 @Named
 @ViewAccessScoped
@@ -33,18 +31,17 @@ public class UsuarioBean implements Serializable{
 	private UIForm form;
 	
 	@Inject
-	private UsuarioService usuarioDao;
+	private UsuarioService usuarioService;
 	@Inject
 	private FacesUtils facesUtils;
 	
 	public void lista() {
-		usuarios = usuarioDao.listaTudo();
+		usuarios = usuarioService.listaTudo();
 		setState(ESTADO_DE_PESQUISA);
 	}
 	
 	public void preparaParaAdicionar() {
 		this.usuario = new Usuario();
-		facesUtils.cleanSubmittedValues(form); // limpa arvore
 		setState(ESTADO_DE_NOVO);
 	}
 	
@@ -56,20 +53,19 @@ public class UsuarioBean implements Serializable{
 			return;
 		}
 		
-		usuarioDao.salva(usuario);
+		usuarioService.salva(usuario);
 		facesUtils.adicionaMensagemDeInformacao("Usuário adicionado com sucesso!");
 		lista();
 	}
 	
 	public void remove() {
-		usuarioDao.remove(usuario);
+		usuarioService.remove(usuario);
 		facesUtils.adicionaMensagemDeInformacao("Usuário removido com sucesso!");
 		lista();
 	}
 	
 	public void preparaParaAlterar(Usuario usuario) {
-		this.usuario = usuarioDao.carrega(usuario.getId()); // evita LazyInitializationException
-		facesUtils.cleanSubmittedValues(form); // limpa arvore
+		this.usuario = usuarioService.carrega(usuario.getId()); // evita LazyInitializationException
 		setState(ESTADO_DE_EDICAO);
 	}
 	
@@ -81,14 +77,13 @@ public class UsuarioBean implements Serializable{
 			return;
 		}
 		
-		usuarioDao.atualiza(usuario);
+		usuarioService.atualiza(usuario);
 		facesUtils.adicionaMensagemDeInformacao("Usuário atualizado com sucesso!");
 		lista();
 	}
 	
 	public void voltar() {
 		this.usuario = new Usuario();
-		facesUtils.cleanSubmittedValues(form); // limpa arvore
 		lista();
 	}
 	
@@ -106,7 +101,7 @@ public class UsuarioBean implements Serializable{
 		return usuarios;
 	}
 	public void setUsuarioDao(UsuarioService usuarioDao) {
-		this.usuarioDao = usuarioDao;
+		this.usuarioService = usuarioDao;
 	}
 	public Usuario getUsuario() {
 		return usuario;
