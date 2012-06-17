@@ -13,7 +13,7 @@
 	<ui:define name="conteudo">
 		<div id="container" align="left">
 			<h1>Cadastro de Issue</h1>
-			<h:form id="edicaoForm">
+			<h:form id="issueForm">
 				<t:div id="blocoDePesquisa" rendered="#{issueBean.pesquisando}">
 					<p:dataTable
 						id="tabela"
@@ -161,8 +161,8 @@
 						</h:commandButton>
 					</div>
 				</t:div>
-				 <p:overlayPanel id="overlayPanel" appendToBody="true" for="assinadoPara" hideEffect="explode"  showEffect="fade" dynamic="true" widgetVar="overlay">
-				 		<p:dataTable
+				 <p:overlayPanel id="overlayPanel" appendToBody="true" for="assinadoPara" hideEffect="explode"  showEffect="fade"  widgetVar="overlay">
+				 	 <p:dataTable
 						value="#{issueBean.usuarios}"
 						var="u"
 					    emptyMessage="Nenhum usuário encontrado" 
@@ -175,7 +175,7 @@
 						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="5,10,15,20,30"
 						>
-							<p:ajax event="rowSelect" process="@this" update=":edicaoForm:assinadoPara" listener="#{issueBean.selecionaUsuario}" oncomplete="overlay.hide();jQuery('#assinadoPara').focus();"/>
+							<p:ajax event="rowSelect" process="@this" update=":issueForm:assinadoPara" listener="#{issueBean.selecionaUsuario}" oncomplete="overlay.hide();jQuery('#assinadoPara').focus();"/>
 							<p:column headerText="Nome" sortBy="#{u.nome}" filterBy="#{u.nome}">
 								 #{u.nome}
 							</p:column>

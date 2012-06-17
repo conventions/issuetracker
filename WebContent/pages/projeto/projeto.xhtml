@@ -4,6 +4,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:conventions="http://java.sun.com/jsf/composite/components/conventions"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	template="/pages/template/template_padrao.xhtml">
 	
@@ -11,37 +14,31 @@
 		<div id="container" align="left">
 			<h1>Cadastro de Projeto</h1>
 			
-			<h:form binding="#{projetoBean.form}">
+			<h:form id="projetoForm">
 			
 				<t:div id="blocoDePesquisa" rendered="#{projetoBean.pesquisando}">
-					<div align="right">
-						<h:commandLink value="Novo" 
-							action="#{projetoBean.preparaParaAdicionar}">
-							<f:ajax render="@form" />
-						</h:commandLink> &#160;
-						<h:commandButton value="Listar" 
-							action="#{projetoBean.lista}">
-							<f:ajax render="tabela :mensagens" />
-						</h:commandButton>
-					</div>
-					<h:dataTable
+					 <p:dataTable
 						id="tabela"
-						value="#{projetoBean.projetos}"
+						value="#{projetoBean.dataModel}"
 						var="projeto"
-						rowClasses="odd, even">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="ID" />
-							</f:facet>
+						lazy="true" paginator="true"
+					    widgetVar="tableVar" 
+					    emptyMessage="Nenhum projeto encontrado" 
+						rowClasses="odd, even"
+						rows="5" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15,20,30"
+						>
+						<p:column headerText="ID" sortBy="#{projeto.id}" filterBy="#{projeto.id}">
 							##{projeto.id}
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Nome" />
-							</f:facet>
+						</p:column>
+						
+						  <p:column headerText="Nome" sortBy="#{projeto.nome}" filterBy="#{projeto.nome}">
 							#{projeto.nome}
-						</h:column>
-						<h:column>
+						</p:column>
+						
+						<p:column>
 							<f:facet name="header">
 								<h:outputText value="Ações" />
 							</f:facet>
@@ -51,19 +48,30 @@
 							</h:commandLink>  &#160;
 							<h:commandLink value="remover"
 								action="#{projetoBean.remove}"
-								onclick="return confirm('Deseja realmente remover este usuário?');">
+								onclick="return confirm('Deseja realmente remover este projeto?');">
 								<f:ajax render="@form :mensagens" />
 								<f:setPropertyActionListener 
 									target="#{projetoBean.projeto}" value="#{projeto}" />
 							</h:commandLink>
-						</h:column>
-					</h:dataTable>
+						</p:column>
+						<f:facet name="footer">
+							<conventions:tableFooter message="Projetos encontrados"
+								mbean="#{projetoBean}" footerHeight="15px" renderAddButton="false" />
+						</f:facet>
+						<f:facet name="header">
+							<center>
+								<p:commandButton value="Novo" style="width:85px"
+									action="#{projetoBean.preparaParaAdicionar}" update="@form" />
+							</center>
+						</f:facet>
+
+					</p:dataTable>
 				</t:div>
 				
 				<t:div id="blocoDeEdicao" 
 					rendered="#{not projetoBean.pesquisando}">
-					<h:outputLabel value="Nome" for="nome" />
-					<h:inputText id="nome" styleClass="texto-longo"
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" styleClass="texto-longo"
 						value="#{projetoBean.projeto.nome}" 
 						label="Nome" 
 						required="true" />
@@ -72,16 +80,19 @@
 							immediate="true" 
 							action="#{projetoBean.voltar}" >
 							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetEditableValues for="@form"/>
 						</h:commandLink> &#160;
 						<h:commandButton value="Inserir" 
 							action="#{projetoBean.adiciona}"
 							rendered="#{projetoBean.adicionando}">
 							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetEditableValues for="@form"/>
 						</h:commandButton>
 						<h:commandButton value="Alterar" 
 							action="#{projetoBean.altera}"
 							rendered="#{projetoBean.editando}">
 							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetEditableValues for="@form"/>
 						</h:commandButton>
 					</div>
 				</t:div>

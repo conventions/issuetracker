@@ -98,7 +98,7 @@ public class IssueServiceImpl extends StandaloneHibernateService<Issue, Long>
 		String nomeProjeto = null;
 		
 		// configura filtros das colunas da tabela, somente necessário se houver relacionamentos(ex:issue->projeto)
-		// ou para alterar comportamento padrão dos filtros (@see StandaloneHenericHibernateDao#addBasicFilterRestrictions)
+		// ou para alterar comportamento padrão dos filtros {@see StandaloneHenericHibernateDao#addBasicFilterRestrictions}
 		if (filters != null && !filters.isEmpty()) {
 		    nomeProjeto = filters.get("projeto.nome");
 			if(nomeProjeto != null){

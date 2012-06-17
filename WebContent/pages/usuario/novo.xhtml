@@ -5,51 +5,55 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	template="/pages/template/template_padrao.xhtml">
 	
 	<ui:define name="conteudo">
 		<div id="container" align="left">
 			<h1>Cadastro de Usuários</h1>
 			
-			<h:form>
-				<h:outputLabel value="Nome" for="nome" />
-				<h:inputText id="nome" styleClass="texto-longo"
+			<h:form id="incluirForm">
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" styleClass="texto-longo"
 					value="#{usuarioBean.usuario.nome}" 
 					label="Nome" 
 					required="true" />
-				<h:outputLabel value="Login" for="login" />
-				<h:inputText id="login" 
+				<p:outputLabel value="Login" for="login" />
+				<p:inputText id="login" 
 					value="#{usuarioBean.usuario.login}" 
 					label="Login"
 					required="true">
 					<f:validateLength minimum="4" />
-				</h:inputText>
-				<h:outputLabel value="E-mail" for="email" />
-				<h:inputText id="email" 
+				</p:inputText>
+				<p:outputLabel value="E-mail" for="email" />
+				<p:inputText id="email" 
 					value="#{usuarioBean.usuario.email}" 
 					label="E-mail" 
 					required="true" />
-				<fieldset class="confirma-senha">
-					<legend>Entre com a senha e confirmação de senha</legend>
-					<h:outputLabel value="Senha" for="senha" />
-					<h:inputSecret id="senha" 
+				<p:fieldset legend="Entre com a senha e confirmação de senha" styleClass="confirma-senha">
+					<p:outputLabel value="Senha" for="senha" />
+					<p:inputSecret id="senha" 
 						value="#{usuarioBean.usuario.senha}" 
 						label="Senha" 
 						required="true" 
 						redisplay="true" />
-					<h:outputLabel value="Confirma" for="confirmacaoDeSenha" />
-					<h:inputSecret id="confirmacaoDeSenha" 
+					<p:outputLabel value="Confirma" for="confirmacaoDeSenha" />
+					<p:inputSecret id="confirmacaoDeSenha" 
 						value="#{usuarioBean.confirmacaoDeSenha}"
 						label="Confirma" 
 						required="true" />
-				</fieldset>
+				</p:fieldset>
 				<div align="right">
 					<h:commandLink value="Voltar"
 						immediate="true" 
-						action="lista?faces-redirect=true" /> &#160;
+						action="lista?faces-redirect=true" >
+							<pe:resetEditableValues for="incluirForm"/>
+						</h:commandLink> &#160;
 					<h:commandButton value="Salvar" 
 						action="#{usuarioBean.adiciona}">
 						<f:ajax execute="@form" render=":mensagens" />
+						<pe:resetEditableValues for="incluirForm"/>
 					</h:commandButton>
 				</div>
 			</h:form>

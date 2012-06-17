@@ -25,13 +25,7 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 
 	private Usuario usuario = new Usuario();
 	private String confirmacaoDeSenha;
-	private List<Usuario> usuarios = new ArrayList<Usuario>();
 
-	private static final String ESTADO_DE_NOVO = "_novo";
-	private static final String ESTADO_DE_EDICAO = "_edicao";
-	private static final String ESTADO_DE_PESQUISA = "_pesquisa";
-
-	private String state = ESTADO_DE_PESQUISA;
 
 	@Inject
 	private FacesUtils facesUtils;
@@ -46,12 +40,12 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 	}
 
 	public void lista() {
-		setState(ESTADO_DE_PESQUISA);
+		super.setFindState();
 	}
 
 	public void preparaParaAdicionar() {
 		this.usuario = new Usuario();
-		setState(ESTADO_DE_NOVO);
+		super.setInsertState();
 	}
 
 	public void adiciona() {
@@ -79,7 +73,7 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 	public void preparaParaAlterar(Usuario usuario) {
 		this.usuario = getUsuarioService().carrega(usuario.getId()); // evita
 																		// LazyInitializationException
-		setState(ESTADO_DE_EDICAO);
+		setUpdateState();
 	}
 
 	public void altera() {
@@ -103,20 +97,16 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 	}
 
 	public boolean isAdicionando() {
-		return ESTADO_DE_NOVO.equals(state);
+		return super.isInsertState();
 	}
-
 	public boolean isEditando() {
-		return ESTADO_DE_EDICAO.equals(state);
+		return super.isUpdateState();
 	}
-
 	public boolean isPesquisando() {
-		return ESTADO_DE_PESQUISA.equals(state);
+		return super.isFindState();
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
+	 
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -138,16 +128,5 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 		this.facesUtils = facesUtils;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
 
 }

@@ -22,29 +22,25 @@ import br.com.triadworks.issuetracker.service.IssueService;
 import br.com.triadworks.issuetracker.service.UsuarioService;
 
 import com.jsf.conventions.bean.BaseMBean;
+import com.jsf.conventions.bean.state.CrudState;
 
 @Named
 @ViewAccessScoped
 public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	
-	private static final String ESTADO_DE_NOVO = "_novo";
-	private static final String ESTADO_DE_EDICAO = "_edicao";
-	private static final String ESTADO_DE_PESQUISA = "_pesquisa";
-	
-	private String state = ESTADO_DE_PESQUISA;
 	
 	private Issue issue = new Issue();
-	private List<Issue> issues = new ArrayList<Issue>();
 	
 	private UsuarioWeb usuarioWeb;
 	private FacesUtils facesUtils;
 	
-	private List<Usuario> usuarios;
 	@Inject
 	private UsuarioService usuarioService;
 	
+	private List<Usuario> usuarios;//lista de usaŕios do overlayPanel
 	
-   //contrutor padrao necessario para o container cdi "bootar"
+	 
+
 	public IssueBean() {
 	}
 
@@ -53,6 +49,7 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 		super.setBaseService(issueService);
 		this.usuarioWeb = usuarioWeb;
 		this.facesUtils = facesUtils;
+		this.setBeanState(CrudState.FIND);
 	}
 
 	IssueService getIssueService(){
@@ -60,7 +57,7 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	}
 	
 	public void lista() {
-		setState(ESTADO_DE_PESQUISA);
+		setBeanState(CrudState.FIND);
 	}
 	
 	public void preparaParaAdicionar() {
@@ -69,7 +66,7 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 //		issue.setAssinadoPara(new Usuario());  // não mais necessário por causa do converter
 		issue.setReportadoPor(usuarioWeb.getUsuario());
 		issue.setReportadoEm(new Date());
-		setState(ESTADO_DE_NOVO);
+		setBeanState(CrudState.INSERT);
 	}
 	
 	public void adiciona() {
@@ -86,7 +83,7 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	
 	public void preparaParaAlterar(Issue projeto) {
 		this.issue = getIssueService().carrega(projeto.getId()); // evita LazyInitializationException
-		setState(ESTADO_DE_EDICAO);
+		setBeanState(CrudState.UPDATE);
 	}
 	
 	public void altera() {
@@ -101,32 +98,20 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	}
 	
 	public boolean isAdicionando() {
-		return ESTADO_DE_NOVO.equals(state);
+		return super.isInsertState();
 	}
 	public boolean isEditando() {
-		return ESTADO_DE_EDICAO.equals(state);
+		return super.isUpdateState();
 	}
 	public boolean isPesquisando() {
-		return ESTADO_DE_PESQUISA.equals(state);
+		return super.isFindState();
 	}
 	
-	public List<Issue> getIssues() {
-		return issues;
-	}
 	public Issue getIssue() {
 		return issue;
 	}
 	public void setIssue(Issue projeto) {
 		this.issue = projeto;
-	}
-	public void setIssues(List<Issue> issues) {
-		this.issues = issues;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
 	}
 	
 	@Produces
