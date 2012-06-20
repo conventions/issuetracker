@@ -7,10 +7,10 @@ import javax.inject.Named;
 import br.com.triadworks.issuetracker.model.Projeto;
 import br.com.triadworks.issuetracker.service.ProjetoService;
 
-import com.jsf.conventions.service.impl.StandaloneHibernateService;
+import com.jsf.conventions.service.impl.CustomHibernateService;
 
 @Named("projetoService")//é acessado diretamente na tela(combo de projetos)
-public class ProjetoServiceImpl extends StandaloneHibernateService<Projeto, Long> implements ProjetoService {
+public class ProjetoServiceImpl extends CustomHibernateService<Projeto, Long> implements ProjetoService {
 
 
 	@SuppressWarnings("unchecked")

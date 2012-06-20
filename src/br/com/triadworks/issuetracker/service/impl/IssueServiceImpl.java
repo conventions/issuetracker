@@ -1,6 +1,5 @@
 package br.com.triadworks.issuetracker.service.impl;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +19,10 @@ import br.com.triadworks.issuetracker.service.IssueService;
 
 import com.jsf.conventions.exception.BusinessException;
 import com.jsf.conventions.model.ConventionsDataModel;
-import com.jsf.conventions.service.impl.StandaloneHibernateService;
-import com.jsf.conventions.util.MessagesController;
+import com.jsf.conventions.service.impl.CustomHibernateService;
 
 @Named("issueService")
-public class IssueServiceImpl extends StandaloneHibernateService<Issue, Long>
+public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 		implements IssueService {
 
 	private static final long serialVersionUID = 1L;
