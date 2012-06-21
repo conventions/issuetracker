@@ -144,19 +144,19 @@
 						<h:commandLink value="Voltar"
 							immediate="true" 
 							action="#{issueBean.voltar}" >
-					        <pe:resetEditableValues for="@form"/>  
+					        <pe:resetInput for="@form"/>  
 							<f:ajax execute="@form" render="@form" />
 						</h:commandLink> &#160;
 						<h:commandButton value="Inserir" 
 							action="#{issueBean.adiciona}"
 							rendered="#{issueBean.adicionando}">
-							 <pe:resetEditableValues for="@form"/>  
+							 <pe:resetInput for="@form"/>  
 							<p:ajax process="@form" update="@form" />
 						</h:commandButton>
 						<h:commandButton value="Alterar" 
 							action="#{issueBean.altera}"
 							rendered="#{issueBean.editando}">
-							 <pe:resetEditableValues for="@form"/>  
+							 <pe:resetInput for="@form"/>  
 							<p:ajax process="@form" update="@form" />
 						</h:commandButton>
 					</div>

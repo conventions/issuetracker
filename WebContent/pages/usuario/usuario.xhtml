@@ -109,19 +109,19 @@
 							immediate="true" 
 							action="#{usuarioBean.voltar}" >
 							<f:ajax execute="@form" render="@form :mensagens" />
-							<pe:resetEditableValues for="@form"/>
+							<pe:resetInput for="@form"/>
 						</h:commandLink> &#160;
 						<h:commandButton value="Inserir" 
 							action="#{usuarioBean.adiciona}"
 							rendered="#{usuarioBean.adicionando}">
 							<f:ajax execute="@form" render="@form :mensagens" />
-							<pe:resetEditableValues for="@form"/>
+							<pe:resetInput for="@form"/>
 						</h:commandButton>
 						<h:commandButton value="Alterar" 
 							action="#{usuarioBean.altera}"
 							rendered="#{usuarioBean.editando}">
 							<f:ajax execute="@form" render="@form :mensagens" />
-							<pe:resetEditableValues for="@form"/>
+							<pe:resetInput for="@form"/>
 						</h:commandButton>
 					</div>
 				</t:div>

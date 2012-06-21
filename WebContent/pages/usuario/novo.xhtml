@@ -48,12 +48,12 @@
 					<h:commandLink value="Voltar"
 						immediate="true" 
 						action="lista?faces-redirect=true" >
-							<pe:resetEditableValues for="incluirForm"/>
+							<pe:resetInput for="incluirForm"/>
 						</h:commandLink> &#160;
 					<h:commandButton value="Salvar" 
 						action="#{usuarioBean.adiciona}">
 						<f:ajax execute="@form" render=":mensagens" />
-						<pe:resetEditableValues for="incluirForm"/>
+						<pe:resetInput for="incluirForm"/>
 					</h:commandButton>
 				</div>
 			</h:form>

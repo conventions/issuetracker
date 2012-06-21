@@ -1,5 +1,6 @@
 package br.com.triadworks.issuetracker.producer;
 
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Disposes;
@@ -13,29 +14,20 @@ import com.jsf.conventions.producer.entitymanager.EntityManagerProvider;
 import com.jsf.conventions.producer.entitymanager.Type;
 import com.jsf.conventions.qualifier.ConventionsEntityManager;
 
-@RequestScoped
 @Specializes
+@Dependent
 @ConventionsEntityManager(type=Type.CUSTOM)
 public class IssueTrackerEntityManagerProvider extends CustomEntityManagerProvided implements EntityManagerProvider{
 	
+	 
+	private static final long serialVersionUID = 1L;
+	
 	@PersistenceContext(unitName="issueTrackerPU")
 	private EntityManager entityManager;
-	
-	
-	@Produces
-    @RequestScoped
-    @Default
-    @Override
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
 
-
-	public void dispose(@Disposes @Default EntityManager entityManager) {
-	 
-		if(entityManager.isOpen()){
-			entityManager.close();
-		}
+	
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 
    

@@ -158,6 +158,12 @@ public class Issue implements Serializable {
 		this.atualizadoEm = new Date();
 	}
 	
+	
+	
+	@Override
+	public String toString() {
+		return ""+id ;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
