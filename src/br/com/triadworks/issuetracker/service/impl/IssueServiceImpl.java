@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.inject.Named;
 
-import org.apache.myfaces.extensions.cdi.jpa.api.Transactional;
+import org.apache.deltaspike.jpa.api.Transactional;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
