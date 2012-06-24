@@ -38,9 +38,6 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	@Inject
 	private UsuarioService usuarioService;
 	
-	private List<Usuario> usuarios;//lista de usaŕios do overlayPanel
-	
-	 
 
 	public IssueBean() {
 	}
@@ -121,16 +118,6 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 		return new ArrayList<SelectItem>(){{add(new SelectItem(TipoDeIssue.BUG.name(), "Bug"));add(new SelectItem(TipoDeIssue.FEATURE.name(), "Feature"));}};
 	}
 
-	public List<Usuario> getUsuarios() {
-		if(usuarios == null){
-			usuarios = usuarioService.listaTudo();
-		}
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
 	
 	public void selecionaUsuario(SelectEvent event){
 		issue.setAssinadoPara((Usuario) event.getObject());

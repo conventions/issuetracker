@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Named;
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import org.apache.deltaspike.jpa.api.Transactional;
 import org.hibernate.criterion.DetachedCriteria;
@@ -43,8 +44,9 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 	@Override
 	@Transactional
 	public void comenta(Long id, Comentario comentario) {
-		Issue issue = carrega(id);
+		Issue issue = this.load(id);
 		issue.comenta(comentario); // thanks persistence context ;-)
+		super.flushSession();
 	}
 
 	@Override
@@ -52,6 +54,7 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 	public void fecha(Long id, Comentario comentario) {
 		Issue issue = carrega(id);
 		issue.fecha(comentario); // thanks persistence context ;-)
+		super.flushSession();
 	}
 
 	@Override

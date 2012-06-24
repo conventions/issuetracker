@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.deltaspike.jpa.api.Transactional;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
 import br.com.triadworks.issuetracker.controller.UsuarioWeb;
@@ -68,6 +69,7 @@ public class DetalheDaIssueBean implements Serializable{
 	/**
 	 * Comenta e Fecha a issue em questão.
 	 */
+	@Transactional
 	public void fechaIssue() {
 		comentario.setAutor(usuarioWeb.getUsuario());
 		issueService.fecha(issue.getId(), comentario);

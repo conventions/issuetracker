@@ -5,27 +5,27 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
 	template="/pages/template/template_padrao.xhtml">
 	
 	<ui:define name="cabecalho"></ui:define>
 	
-	<ui:define name="conteudo">
+<ui:define name="conteudo">
 		<div id="container" align="left">
 			<h:form id="form" prependId="true">
-				<fieldset id="login">
-					<legend>Acesse o Sistema</legend>
-					<h:outputLabel value="Login" for="login" />
-					<h:inputText id="login" value="#{loginBean.login}" 
+				<p:fieldset legend="Acesse o Sistema" >
+					<p:outputLabel value="Login" for="login" />
+					<p:inputText id="login" value="#{loginBean.login}" 
 						required="true" label="Login" 
 						requiredMessage="Login é campo obrigatório" />
 					<h:message for="login" errorClass="errors" />
-					<h:outputLabel value="Senha" for="senha" />
-					<h:inputSecret id="senha" value="#{loginBean.senha}" />
+					<p:outputLabel value="Senha" for="senha" />
+					<p:password id="senha" value="#{loginBean.senha}" />
 					<br />
-					<h:commandButton 
+					<p:commandButton 
 						id="logar"
 						value="Logar" action="#{loginBean.logar}" />
-				</fieldset>
+				</p:fieldset>
 			</h:form>
 		</div>
 	</ui:define>

@@ -5,7 +5,7 @@ import javax.enterprise.inject.Specializes;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.jsf.conventions.entitymanager.provider.CustomEntityManagerProvided;
+import com.jsf.conventions.entitymanager.provider.CustomEntityManagerProvider;
 import com.jsf.conventions.entitymanager.provider.EntityManagerProvider;
 import com.jsf.conventions.entitymanager.provider.Type;
 import com.jsf.conventions.qualifier.ConventionsEntityManager;
@@ -13,7 +13,7 @@ import com.jsf.conventions.qualifier.ConventionsEntityManager;
 @Specializes
 @Dependent
 @ConventionsEntityManager(type=Type.CUSTOM)
-public class IssueTrackerProvider extends CustomEntityManagerProvided implements EntityManagerProvider{
+public class IssueTrackerProvider extends CustomEntityManagerProvider implements EntityManagerProvider{
 	
 	 
 	private static final long serialVersionUID = 1L;
