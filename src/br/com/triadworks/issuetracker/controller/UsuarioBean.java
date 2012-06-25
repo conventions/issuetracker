@@ -22,7 +22,6 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 	private Usuario usuario = new Usuario();
 	private String confirmacaoDeSenha;
 
-
 	@Inject
 	private FacesUtils facesUtils;
 
@@ -40,7 +39,7 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 		super.setFindState();
 	}
 
-	@SecurityMethod(rolesAllowed={"godlike"},message="Somente o usuário com perfil 'godlike' pode incluir usuários.")
+	@SecurityMethod(rolesAllowed = { "godlike" }, message = "Somente o usuário com perfil 'godlike' pode incluir usuários.")
 	public void preparaParaAdicionar() {
 		this.usuario = new Usuario();
 		super.setInsertState();
@@ -61,7 +60,7 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 		lista();
 	}
 
-	@SecurityMethod(rolesAllowed={"godlike"},message="Somente o usuário admin pode remover usuários.")
+	@SecurityMethod(rolesAllowed = { "godlike" }, message = "Somente o usuário admin pode remover usuários.")
 	public void remove() {
 		getUsuarioService().remove(usuario);
 		facesUtils
@@ -69,7 +68,7 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 		lista();
 	}
 
-	@SecurityMethod(rolesAllowed={"godlike"},message="Somente o usuário com perfil 'godlike' pode alterar usuários.")
+	@SecurityMethod(rolesAllowed = { "godlike" }, message = "Somente o usuário com perfil 'godlike' pode alterar usuários.")
 	public void preparaParaAlterar(Usuario usuario) {
 		this.usuario = getUsuarioService().carrega(usuario.getId()); // evita
 																		// LazyInitializationException
@@ -99,14 +98,14 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 	public boolean isAdicionando() {
 		return super.isInsertState();
 	}
+
 	public boolean isEditando() {
 		return super.isUpdateState();
 	}
+
 	public boolean isPesquisando() {
 		return super.isFindState();
 	}
-
-	 
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -127,6 +126,5 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 	public void setFacesUtils(FacesUtils facesUtils) {
 		this.facesUtils = facesUtils;
 	}
-
 
 }

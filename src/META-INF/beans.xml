@@ -3,6 +3,6 @@
        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
        
        <interceptors>  
-       		 <class>br.com.triadworks.issuetracker.security.IssueTrackerSecurityInterceptor</class>  
+       		 <class>br.com.triadworks.issuetracker.security.SecurityInterceptor</class>  
         </interceptors>
 </beans>
