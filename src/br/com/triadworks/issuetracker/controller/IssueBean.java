@@ -114,8 +114,16 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	
 	@Produces
 	@Named("issueTypes")
-	public List<SelectItem> getIssueTypes(){
-		return new ArrayList<SelectItem>(){{add(new SelectItem(TipoDeIssue.BUG.name(), "Bug"));add(new SelectItem(TipoDeIssue.FEATURE.name(), "Feature"));}};
+	public List<SelectItem> getIssueTypes() {
+		List<SelectItem> tipos = new ArrayList<SelectItem>(){{
+			add(new SelectItem(TipoDeIssue.TODOS.name(), "Todos"));
+			add(new SelectItem(TipoDeIssue.BUG.name(), "Bug"));
+			add(new SelectItem(TipoDeIssue.FEATURE.name(), "Feature"));
+		}};
+		if(!isPesquisando()){
+			tipos.remove(0);
+		}
+	   return tipos;
 	}
 
 	

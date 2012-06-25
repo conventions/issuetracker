@@ -128,7 +128,7 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 				if(TipoDeIssue.BUG.name().equals(tipo)){
 					dc.add(Restrictions.eq("tipo", TipoDeIssue.BUG));
 				}
-				else{
+				else if(TipoDeIssue.FEATURE.name().equals(tipo)){
 					dc.add(Restrictions.eq("tipo", TipoDeIssue.FEATURE));
 				}
 			}
