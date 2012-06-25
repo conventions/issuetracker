@@ -24,7 +24,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jboss-logging-3.1.0.GA.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate-entitymanager-4.1.4.Final.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/postgresql-9.1-901.jdbc4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.faces-2.1.7.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-3.3.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/conventions-core-0.9.2-SNAPSHOT.jar"/>

@@ -76,13 +76,5 @@
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
 	
-	<!-- Maneira mais simples de evitar o ViewExpiredException 
-	<error-page>
-		<exception-type>
-			javax.faces.application.ViewExpiredException
-		</exception-type>
-		<location>/index.jsp</location>
-	</error-page>
-	-->
 	
 </web-app>
