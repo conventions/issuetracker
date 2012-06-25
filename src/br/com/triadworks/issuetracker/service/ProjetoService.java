@@ -18,4 +18,7 @@ public interface ProjetoService extends BaseService<Projeto,Long>{
 
 	public Projeto carrega(Long id);
 	
+	boolean isProjetoExistente(Projeto projeto);
+	
+	
 }

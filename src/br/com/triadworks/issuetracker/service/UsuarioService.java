@@ -20,4 +20,6 @@ public interface UsuarioService extends BaseService<Usuario, Long>{
 
 	public Usuario carrega(Long id);
 	
+	boolean isUsuarioExistente(Usuario usuario);
+	
 }
