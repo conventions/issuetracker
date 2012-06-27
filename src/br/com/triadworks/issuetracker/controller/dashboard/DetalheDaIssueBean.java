@@ -2,11 +2,12 @@ package br.com.triadworks.issuetracker.controller.dashboard;
 
 import java.io.Serializable;
 
+import javax.enterprise.inject.spi.Bean;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.deltaspike.jpa.api.Transactional;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+import org.apache.myfaces.extensions.cdi.jpa.api.Transactional;
 
 import br.com.triadworks.issuetracker.controller.UsuarioWeb;
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
@@ -25,7 +26,6 @@ public class DetalheDaIssueBean implements Serializable{
 	private IssueService issueService;
 	private UsuarioWeb usuarioWeb;
 	private FacesUtils facesUtils;
-	
 	
 	
 	public DetalheDaIssueBean() {
@@ -69,7 +69,6 @@ public class DetalheDaIssueBean implements Serializable{
 	/**
 	 * Comenta e Fecha a issue em questão.
 	 */
-	@Transactional
 	public void fechaIssue() {
 		comentario.setAutor(usuarioWeb.getUsuario());
 		issueService.fecha(issue.getId(), comentario);

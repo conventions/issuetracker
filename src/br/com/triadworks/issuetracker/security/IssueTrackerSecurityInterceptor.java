@@ -4,7 +4,7 @@ import com.jsf.conventions.security.SecurityMethodInterceptor;
 
 //@Interceptor
 //@SecurityMethod
-public class IssueTrackerSecurityInterceptor extends SecurityMethodInterceptor {
+//public class IssueTrackerSecurityInterceptor extends SecurityMethodInterceptor {
 
 //	@Inject
 //	@UserRole
@@ -33,4 +33,4 @@ public class IssueTrackerSecurityInterceptor extends SecurityMethodInterceptor {
 //		return false;
 //	}
 
-}
+//}

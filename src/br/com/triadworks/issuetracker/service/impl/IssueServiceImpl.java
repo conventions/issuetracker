@@ -3,10 +3,10 @@ package br.com.triadworks.issuetracker.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Named;
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
-import org.apache.deltaspike.jpa.api.Transactional;
+import org.apache.myfaces.extensions.cdi.jpa.api.TransactionScoped;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -23,6 +23,7 @@ import com.jsf.conventions.model.ConventionsDataModel;
 import com.jsf.conventions.service.impl.CustomHibernateService;
 
 @Named("issueService")
+@Dependent
 public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 		implements IssueService {
 
@@ -42,19 +43,17 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 	}
 
 	@Override
-	@Transactional
+	@org.apache.myfaces.extensions.cdi.jpa.api.Transactional
 	public void comenta(Long id, Comentario comentario) {
 		Issue issue = this.load(id);
 		issue.comenta(comentario); // thanks persistence context ;-)
-		super.flushSession();
 	}
 
 	@Override
-	@Transactional
+	@org.apache.myfaces.extensions.cdi.jpa.api.Transactional
 	public void fecha(Long id, Comentario comentario) {
 		Issue issue = carrega(id);
 		issue.fecha(comentario); // thanks persistence context ;-)
-		super.flushSession();
 	}
 
 	@Override
