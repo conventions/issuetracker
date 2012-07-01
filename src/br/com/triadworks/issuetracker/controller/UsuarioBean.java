@@ -70,7 +70,7 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 
 	@SecurityMethod(rolesAllowed = { "godlike" }, message = "Somente o usuário com perfil 'godlike' pode alterar usuários.")
 	public void preparaParaAlterar(Usuario usuario) {
-		this.usuario = getUsuarioService().carrega(usuario.getId()); // evita
+		this.usuario = getUsuarioService().get(usuario.getId()); // evita
 																		// LazyInitializationException
 		setUpdateState();
 	}

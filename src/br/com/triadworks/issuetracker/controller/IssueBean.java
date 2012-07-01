@@ -80,7 +80,7 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	}
 	
 	public void preparaParaAlterar(Issue projeto) {
-		this.issue = getIssueService().carrega(projeto.getId()); // evita LazyInitializationException
+		this.issue = getIssueService().get(projeto.getId()); // evita LazyInitializationException
 		setBeanState(CrudState.UPDATE);
 	}
 	

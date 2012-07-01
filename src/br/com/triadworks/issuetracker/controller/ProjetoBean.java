@@ -1,22 +1,17 @@
 package br.com.triadworks.issuetracker.controller;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
-import javax.faces.component.UIForm;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 
-import com.jsf.conventions.bean.BaseMBean;
-import com.jsf.conventions.bean.state.CrudState;
-
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
 import br.com.triadworks.issuetracker.model.Projeto;
 import br.com.triadworks.issuetracker.service.ProjetoService;
+
+import com.jsf.conventions.bean.BaseMBean;
+import com.jsf.conventions.bean.state.CrudState;
 
 @ViewAccessScoped
 @Named
@@ -59,7 +54,7 @@ public class ProjetoBean extends BaseMBean<Projeto> {
 	}
 	
 	public void preparaParaAlterar(Projeto projeto) {
-		this.projeto = projetoService.carrega(projeto.getId()); // evita LazyInitializationException
+		this.projeto = projetoService.get(projeto.getId()); // evita LazyInitializationException
 		setBeanState(CrudState.UPDATE);
 	}
 	
