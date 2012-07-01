@@ -15,23 +15,12 @@ import com.jsf.conventions.security.SecurityMethodInterceptor;
 import com.jsf.conventions.util.MessagesController;
 
 
-/**
- *  o @AroundInvike deveria estar definido apenas na superclasse mas por causa de um bug no Openwebbeans
- *  foi definido no projeto tbm.
- * o certo seria usar a classe IssueTrackerSecurityInterceptor e apenas definir a lógica do 
- * método checkUserPermissions. 
- *
- */
+ 
 @Interceptor
 @SecurityMethod
 public class SecurityInterceptor extends SecurityMethodInterceptor implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-
-	@AroundInvoke
-    public Object checkPermission(InvocationContext ic) throws Exception {
-       return super.checkPermission(ic);
-    }
 
     /**
      *
