@@ -22,8 +22,8 @@ import com.jsf.conventions.exception.BusinessException;
 import com.jsf.conventions.model.ConventionsDataModel;
 import com.jsf.conventions.service.impl.CustomHibernateService;
 
-@Named("issueService")
 @Dependent
+@Named("issueService")
 public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 		implements IssueService {
 
@@ -112,6 +112,16 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 		// configura filtros das colunas da tabela, somente necessário se houver relacionamentos(ex:issue->projeto)
 		// ou para alterar comportamento padrão dos filtros {@see StandaloneHenericHibernateDao#addBasicFilterRestrictions}
 		if (filters != null && !filters.isEmpty()) {
+			
+			String id = filters.get("id");
+			
+			if(id != null && !"".endsWith(id)){
+				try{
+					dc.add(Restrictions.eq("id", Long.parseLong(id)));
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		    nomeProjeto = filters.get("projeto.nome");
 			if(nomeProjeto != null){
 				dc.createAlias("projeto", "projeto");
