@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:conventions="http://java.sun.com/jsf/composite/components/conventions"
+	template="/pages/template/template_padrao.xhtml">
+	
+	<ui:define name="conteudo">
+		<div id="container" align="left">
+			<h1>Cadastro de Usuários</h1>
+			
+			<h:form id="usuarioForm">
+			
+				<t:div id="blocoDePesquisa" rendered="#{usuarioBean.pesquisando}">
+					<p:dataTable
+						id="tabela"
+						value="#{usuarioBean.dataModel}"
+						var="usuario"
+						lazy="true" paginator="true"
+					    emptyMessage="Nenhum usuário encontrado" 
+						rowClasses="odd, even"
+						rows="5" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15,20,30">
+						<p:column headerText="ID" sortBy="#{usuario.id}" filterBy="#{usuario.id}">
+							##{usuario.id}
+						</p:column>
+						<p:column headerText="Nome" sortBy="#{usuario.nome}" filterBy="#{usuario.nome}">
+							#{usuario.nome}
+						</p:column>
+						<p:column  headerText="Login" sortBy="#{usuario.login}" filterBy="#{usuario.login}">
+							#{usuario.login}
+						</p:column>
+						<p:column headerText="E-mail" sortBy="#{usuario.email}">
+							#{usuario.email}
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Ações" />
+							</f:facet>
+							<h:commandLink value="editar"
+								action="#{usuarioBean.preparaParaAlterar(usuario)}">
+								<f:ajax render="@form" />
+							</h:commandLink>  &#160;
+							<h:commandLink value="remover"
+								action="#{usuarioBean.remove}"
+								disabled="#{usuario.id eq usuarioLogado.id}"
+								onclick="return confirm('Deseja realmente remover este usuário?');">
+								<f:ajax render="@form :mensagens" />
+								<f:setPropertyActionListener 
+									target="#{usuarioBean.usuario}" value="#{usuario}" />
+							</h:commandLink>
+						</p:column>
+
+						<f:facet name="footer">
+							<conventions:tableFooter message="Usuários encontrados"
+								mbean="#{usuarioBean}" footerHeight="15px" renderAddButton="false" />
+						</f:facet>
+						<f:facet name="header">
+							<center>
+								<p:commandButton value="Novo" style="width:85px"
+									action="#{usuarioBean.preparaParaAdicionar}" update="@form" />
+							</center>
+						</f:facet>
+					</p:dataTable>
+					
+				</t:div>
+				
+				<t:div id="blocoDeEdicao" 
+					rendered="#{not usuarioBean.pesquisando}">
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" styleClass="texto-longo"
+						value="#{usuarioBean.usuario.nome}" 
+						label="Nome" 
+						required="true" />
+					<p:outputLabel value="Login" for="login" />
+					<p:inputText id="login" 
+						value="#{usuarioBean.usuario.login}" 
+						label="Login"
+						required="true">
+						<f:validateLength minimum="4" />
+					</p:inputText>
+					<p:outputLabel value="E-mail" for="email" />
+					<p:inputText id="email" 
+						value="#{usuarioBean.usuario.email}" 
+						label="E-mail" 
+						required="true" />
+					<p:fieldset legend="Entre com a senha e confirmação de senha" styleClass="confirma-senha">
+						<p:outputLabel value="Senha" for="senha" />
+						<p:password id="senha" 
+							value="#{usuarioBean.usuario.senha}" 
+							label="Senha" 
+							required="true" 
+							redisplay="true" />
+						<p:outputLabel value="Confirma" for="confirmacaoDeSenha" />
+						<p:password id="confirmacaoDeSenha" 
+							value="#{usuarioBean.confirmacaoDeSenha}"
+							label="Confirma" 
+							required="true" />
+					</p:fieldset>
+					<div align="right">
+						<h:commandLink value="Voltar"
+							immediate="true" 
+							action="#{usuarioBean.voltar}" >
+							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetInput for="@form"/>
+						</h:commandLink> &#160;
+						<h:commandButton value="Inserir" 
+							action="#{usuarioBean.adiciona}"
+							rendered="#{usuarioBean.adicionando}">
+							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetInput for="@form"/>
+						</h:commandButton>
+						<h:commandButton value="Alterar" 
+							action="#{usuarioBean.altera}"
+							rendered="#{usuarioBean.editando}">
+							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetInput for="@form"/>
+						</h:commandButton>
+					</div>
+				</t:div>
+			
+			</h:form>
+			
+		</div>
+	</ui:define>
+		
+</ui:composition>

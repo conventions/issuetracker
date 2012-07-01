@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+	version="2.1">
+
+	<application>
+		<!-- Internacionalização -->
+		<resource-bundle>
+			<base-name>br.com.triadworks.issuetracker.resources.AppMessages</base-name>
+			<var>text</var>
+		</resource-bundle>
+		<message-bundle>br.com.triadworks.issuetracker.resources.Messages</message-bundle>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>pt_BR</supported-locale>
+		</locale-config>
+		<action-listener>com.jsf.conventions.exception.ConventionsActionListenerImpl</action-listener>
+	</application>
+
+	<!-- <managed-bean> <managed-bean-name>usuarioWeb</managed-bean-name> <managed-bean-class> 
+		br.com.triadworks.issuetracker.controller.UsuarioWeb </managed-bean-class> 
+		<managed-bean-scope>session</managed-bean-scope> </managed-bean> <managed-bean> 
+		<managed-bean-name>facesUtils</managed-bean-name> <managed-bean-class> br.com.triadworks.issuetracker.controller.util.FacesUtils 
+		</managed-bean-class> <managed-bean-scope>request</managed-bean-scope> <managed-property> 
+		<property-name>facesContext</property-name> <value>#{facesContext}</value> 
+		</managed-property> </managed-bean> -->
+
+	<!-- <managed-bean> <managed-bean-name>loginBean</managed-bean-name> <managed-bean-class> 
+		br.com.triadworks.issuetracker.controller.LoginBean </managed-bean-class> 
+		<managed-bean-scope>request</managed-bean-scope> <managed-property> <property-name>autenticador</property-name> 
+		<value>#{autenticador}</value> </managed-property> <managed-property> <property-name>usuarioWeb</property-name> 
+		<value>#{usuarioWeb}</value> </managed-property> <managed-property> <property-name>facesUtils</property-name> 
+		<value>#{facesUtils}</value> </managed-property> </managed-bean> -->
+
+	<!-- <navigation-rule> <from-view-id>/pages/login.xhtml</from-view-id> <navigation-case> 
+		<from-outcome>home</from-outcome> <to-view-id>home.xhtml</to-view-id> <redirect 
+		/> </navigation-case> </navigation-rule> -->
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>errorPage</from-outcome>
+			<to-view-id>/error.faces</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/pages/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+</faces-config>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:conventions="http://java.sun.com/jsf/composite/components/conventions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/pages/template/template_padrao.xhtml">
+	
+	<ui:define name="conteudo">
+		<div id="container" align="left">
+			<h1>Cadastro de Projeto</h1>
+			
+			<h:form id="projetoForm">
+			
+				<t:div id="blocoDePesquisa" rendered="#{projetoBean.pesquisando}">
+					 <p:dataTable
+						id="tabela"
+						value="#{projetoBean.dataModel}"
+						var="projeto"
+						lazy="true" paginator="true"
+					    widgetVar="tableVar" 
+					    emptyMessage="Nenhum projeto encontrado" 
+						rowClasses="odd, even"
+						rows="5" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15,20,30"
+						>
+						<p:column headerText="ID" sortBy="#{projeto.id}" filterBy="#{projeto.id}">
+							##{projeto.id}
+						</p:column>
+						
+						  <p:column headerText="Nome" sortBy="#{projeto.nome}" filterBy="#{projeto.nome}">
+							#{projeto.nome}
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Ações" />
+							</f:facet>
+							<h:commandLink value="editar"
+								action="#{projetoBean.preparaParaAlterar(projeto)}">
+								<f:ajax render="@form" />
+							</h:commandLink>  &#160;
+							<h:commandLink value="remover"
+								action="#{projetoBean.remove}"
+								onclick="return confirm('Deseja realmente remover este projeto?');">
+								<f:ajax render="@form :mensagens" />
+								<f:setPropertyActionListener 
+									target="#{projetoBean.projeto}" value="#{projeto}" />
+							</h:commandLink>
+						</p:column>
+						<f:facet name="footer">
+							<conventions:tableFooter message="Projetos encontrados"
+								mbean="#{projetoBean}" footerHeight="15px" renderAddButton="false" />
+						</f:facet>
+						<f:facet name="header">
+							<center>
+								<p:commandButton value="Novo" style="width:85px"
+									action="#{projetoBean.preparaParaAdicionar}" update="@form" />
+							</center>
+						</f:facet>
+
+					</p:dataTable>
+				</t:div>
+				
+				<t:div id="blocoDeEdicao" 
+					rendered="#{not projetoBean.pesquisando}">
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" styleClass="texto-longo"
+						value="#{projetoBean.projeto.nome}" 
+						label="Nome" 
+						required="true" />
+					<div align="right">
+						<h:commandLink value="Voltar"
+							immediate="true" 
+							action="#{projetoBean.voltar}" >
+							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetInput for="@form"/>
+						</h:commandLink> &#160;
+						<h:commandButton value="Inserir" 
+							action="#{projetoBean.adiciona}"
+							rendered="#{projetoBean.adicionando}">
+							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetInput for="@form"/>
+						</h:commandButton>
+						<h:commandButton value="Alterar" 
+							action="#{projetoBean.altera}"
+							rendered="#{projetoBean.editando}">
+							<f:ajax execute="@form" render="@form :mensagens" />
+							<pe:resetInput for="@form"/>
+						</h:commandButton>
+					</div>
+				</t:div>
+			
+			</h:form>
+			
+		</div>
+	</ui:define>
+		
+</ui:composition>
