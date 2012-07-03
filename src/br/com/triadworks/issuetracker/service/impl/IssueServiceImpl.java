@@ -18,7 +18,7 @@ import br.com.triadworks.issuetracker.model.TipoDeIssue;
 import br.com.triadworks.issuetracker.service.IssueService;
 
 import com.jsf.conventions.exception.BusinessException;
-import com.jsf.conventions.model.ConventionsDataModel;
+import com.jsf.conventions.model.WrappedData;
 import com.jsf.conventions.qualifier.PersistentClass;
 import com.jsf.conventions.service.impl.CustomHibernateService;
 
@@ -93,7 +93,7 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 	 * esta service for atualizada(via ajax ou não)
 	 */
 	@Override
-	public ConventionsDataModel<Issue> configFindPaginated(int first,
+	public WrappedData<Issue> configFindPaginated(int first,
 			int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, String> filters, Map<String, Object> externalFilter) {
 		

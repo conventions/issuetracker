@@ -19,7 +19,7 @@
 				<t:div id="blocoDePesquisa" rendered="#{usuarioBean.pesquisando}">
 					<p:dataTable
 						id="tabela"
-						value="#{usuarioBean.dataModel}"
+						value="#{usuarioBean.paginator.dataModel}"
 						var="usuario"
 						lazy="true" paginator="true"
 					    emptyMessage="Nenhum usuário encontrado" 

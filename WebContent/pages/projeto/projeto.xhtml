@@ -19,7 +19,7 @@
 				<t:div id="blocoDePesquisa" rendered="#{projetoBean.pesquisando}">
 					 <p:dataTable
 						id="tabela"
-						value="#{projetoBean.dataModel}"
+						value="#{projetoBean.paginator.dataModel}"
 						var="projeto"
 						lazy="true" paginator="true"
 					    widgetVar="tableVar" 
