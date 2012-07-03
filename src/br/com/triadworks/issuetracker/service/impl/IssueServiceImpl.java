@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 
-import org.apache.myfaces.extensions.cdi.jpa.api.TransactionScoped;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -19,7 +18,7 @@ import br.com.triadworks.issuetracker.model.TipoDeIssue;
 import br.com.triadworks.issuetracker.service.IssueService;
 
 import com.jsf.conventions.exception.BusinessException;
-import com.jsf.conventions.model.ConventionsDataModel;
+import com.jsf.conventions.model.WrappedData;
 import com.jsf.conventions.service.impl.CustomHibernateService;
 
 @Dependent
@@ -92,7 +91,7 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 	 * esta service for atualizada(via ajax ou não)
 	 */
 	@Override
-	public ConventionsDataModel<Issue> configFindPaginated(int first,
+	public WrappedData<Issue> configFindPaginated(int first,
 			int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, String> filters, Map<String, Object> externalFilter) {
 		

@@ -19,7 +19,7 @@
 				<t:div id="blocoDePesquisa" rendered="#{usuarioBean.pesquisando}">
 					<p:dataTable
 						id="tabela"
-						value="#{usuarioBean.dataModel}"
+						value="#{usuarioBean.paginator.dataModel}"
 						var="usuario"
 						lazy="true" paginator="true"
 					    emptyMessage="Nenhum usuário encontrado" 
@@ -60,7 +60,7 @@
 
 						<f:facet name="footer">
 							<conventions:tableFooter message="Usuários encontrados"
-								mbean="#{usuarioBean}" footerHeight="15px" renderAddButton="false" />
+								mbean="#{usuarioBean}" />
 						</f:facet>
 						<f:facet name="header">
 							<center>

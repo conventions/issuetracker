@@ -16,7 +16,7 @@
 			<t:div id="dashboard">
 			    <p:dataTable
 						id="tabela"
-						value="#{dashboardBean.dataModel}"
+						value="#{dashboardBean.paginator.dataModel}"
 						var="issue"
 						lazy="true" paginator="true"
 					    widgetVar="tableVar" 
@@ -61,7 +61,7 @@
 							</h:outputText>
 						</p:column>
 						<f:facet name="footer">
-                    		<conventions:tableFooter message="Issues encontradas para #{usuarioLogado.login}" mbean="#{dashboardBean}" footerHeight="15px"  renderAddButton="false"/>
+                    		<conventions:tableFooter message="Issues encontradas para #{usuarioLogado.login}" mbean="#{dashboardBean}"/>
               		  </f:facet>
 				 </p:dataTable>
 			</t:div>

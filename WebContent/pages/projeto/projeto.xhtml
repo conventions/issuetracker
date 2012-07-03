@@ -19,7 +19,7 @@
 				<t:div id="blocoDePesquisa" rendered="#{projetoBean.pesquisando}">
 					 <p:dataTable
 						id="tabela"
-						value="#{projetoBean.dataModel}"
+						value="#{projetoBean.paginator.dataModel}"
 						var="projeto"
 						lazy="true" paginator="true"
 					    widgetVar="tableVar" 
@@ -56,7 +56,7 @@
 						</p:column>
 						<f:facet name="footer">
 							<conventions:tableFooter message="Projetos encontrados"
-								mbean="#{projetoBean}" footerHeight="15px" renderAddButton="false" />
+								mbean="#{projetoBean}" />
 						</f:facet>
 						<f:facet name="header">
 							<center>

@@ -17,7 +17,7 @@
 				<t:div id="blocoDePesquisa" rendered="#{issueBean.pesquisando}">
 					<p:dataTable
 						id="tabela"
-						value="#{issueBean.dataModel}"
+						value="#{issueBean.paginator.dataModel}"
 						var="issue"
 						lazy="true" paginator="true"
 					    widgetVar="tableVar" 

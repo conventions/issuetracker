@@ -40,7 +40,7 @@ public class DashboardBean extends BaseMBean<Issue> implements Serializable{
 	@PostConstruct
 	public void preload() {
 		Long id = usuarioWeb.getUsuario().getId();
-		getFilter().put("uID", id);
+		getPaginator().getFilter().put("uID", id);
 //		issues = issueService.getIssuesDoUsuario(id);
 	}
 	
