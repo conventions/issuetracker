@@ -15,7 +15,7 @@
 			<h1>Cadastro de Projeto</h1>
 			
 			<h:form id="projetoForm">
-			
+				<p:remoteCommand name="updateRowCount" process="@none" update="projetoForm:tabela:projetoFooter"/>
 				<t:div id="blocoDePesquisa" rendered="#{projetoBean.pesquisando}">
 					 <p:dataTable
 						id="tabela"
@@ -30,6 +30,7 @@
 						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="5,10,15,20,30"
 						>
+					    <p:ajax process="@this" event="filter" oncomplete="updateRowCount()"/> 
 						<p:column headerText="ID" sortBy="#{projeto.id}" filterBy="#{projeto.id}">
 							##{projeto.id}
 						</p:column>
@@ -55,8 +56,8 @@
 							</h:commandLink>
 						</p:column>
 						<f:facet name="footer">
-							<conventions:tableFooter message="Projetos encontrados"
-								mbean="#{projetoBean}" footerHeight="15px" renderAddButton="false" />
+							<conventions:tableFooter message="Projetos encontrados" id="projetoFooter"
+								mbean="#{projetoBean}" />
 						</f:facet>
 						<f:facet name="header">
 							<center>

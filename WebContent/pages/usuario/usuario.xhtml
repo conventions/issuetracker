@@ -15,8 +15,9 @@
 			<h1>Cadastro de Usuários</h1>
 			
 			<h:form id="usuarioForm">
-			
+				
 				<t:div id="blocoDePesquisa" rendered="#{usuarioBean.pesquisando}">
+				<p:remoteCommand name="updateRowCount" process="@none" update="usuarioForm:tabela:usuarioFooter"/>
 					<p:dataTable
 						id="tabela"
 						value="#{usuarioBean.paginator.dataModel}"
@@ -28,6 +29,7 @@
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
 						{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="5,10,15,20,30">
+                        <p:ajax process="@this" event="filter" oncomplete="updateRowCount()"/> 
 						<p:column headerText="ID" sortBy="#{usuario.id}" filterBy="#{usuario.id}">
 							##{usuario.id}
 						</p:column>
@@ -60,7 +62,7 @@
 
 						<f:facet name="footer">
 							<conventions:tableFooter message="Usuários encontrados"
-								mbean="#{usuarioBean}" footerHeight="15px" renderAddButton="false" />
+								mbean="#{usuarioBean}" id="usuarioFooter"/>
 						</f:facet>
 						<f:facet name="header">
 							<center>
