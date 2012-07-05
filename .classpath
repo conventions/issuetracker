@@ -26,7 +26,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-3.3.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/geronimo-interceptor_1.1_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/myfaces-extcdi-bundle-jsf20-1.0.6-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/conventions-core-0.9.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/conventions-core-0.9.4-SNAPSHOT.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web;#system#"/>
