@@ -12,6 +12,9 @@ import br.com.triadworks.issuetracker.service.ProjetoService;
 
 import com.jsf.conventions.bean.BaseMBean;
 import com.jsf.conventions.bean.state.CrudState;
+import com.jsf.conventions.qualifier.CustomService;
+import com.jsf.conventions.service.BaseService;
+import com.jsf.conventions.util.Paginator;
 
 @ViewAccessScoped
 @Named
@@ -22,6 +25,14 @@ public class ProjetoBean extends BaseMBean<Projeto> {
 	@Inject
 	private ProjetoService projetoService;
 	
+	private Paginator<Projeto> paginator;
+ 
+	
+	@Override
+	public Paginator<Projeto> getPaginator() {
+		// TODO Auto-generated method stub
+		return this.paginator;
+	}
 	@Inject
 	private FacesUtils facesUtils;
 	
@@ -34,6 +45,7 @@ public class ProjetoBean extends BaseMBean<Projeto> {
 		super.setBaseService(projetoService);
 		setBeanState(CrudState.FIND);
 		super.init();
+		paginator = new Paginator<Projeto>(projetoService);
 	}
 	
 	public void preparaParaAdicionar() {
