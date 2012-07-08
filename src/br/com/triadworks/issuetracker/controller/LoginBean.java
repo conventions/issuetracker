@@ -28,6 +28,9 @@ public class LoginBean implements Serializable {
 	
 	@Inject
 	private FacesUtils facesUtils;
+	
+	@Inject
+	private UsuarioService usuarioService;
 
 	 
 
@@ -43,24 +46,24 @@ public class LoginBean implements Serializable {
 		return null;
 	}
 
-//	@PostConstruct
-//	public void initUser() {
-//		List<Usuario> usuarios = usuarioService.listaTudo();
-//		if (usuarios == null || usuarios.isEmpty()) {
-//			Usuario admin = new Usuario();
-//			admin.setEmail("admin@admin.com");
-//			admin.setLogin("admin");
-//			admin.setSenha("admin");
-//			admin.setNome("Administrator Godlike");
-//			usuarioService.save(admin);
-//			Usuario guest = new Usuario();
-//			guest.setEmail("guest@guest.com");
-//			guest.setLogin("guest");
-//			guest.setSenha("guest");
-//			guest.setNome("Guest");
-//			usuarioService.save(guest);
-//		}
-//	}
+	@PostConstruct
+	public void initUser() {
+		List<Usuario> usuarios = usuarioService.listaTudo();
+		if (usuarios == null || usuarios.isEmpty()) {
+			Usuario admin = new Usuario();
+			admin.setEmail("admin@admin.com");
+			admin.setLogin("admin");
+			admin.setSenha("admin");
+			admin.setNome("Administrator Godlike");
+			usuarioService.save(admin);
+			Usuario guest = new Usuario();
+			guest.setEmail("guest@guest.com");
+			guest.setLogin("guest");
+			guest.setSenha("guest");
+			guest.setNome("Guest");
+			usuarioService.save(guest);
+		}
+	}
 
 	public String sair() {
 		usuarioWeb.logout();

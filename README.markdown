@@ -4,7 +4,7 @@ JSF Issue Tracker Project
 <<<<<<<<<<<<<< ENGLISH  >>>>>>>>>>>>>
 -------------------------------------
 
-This project is a simple issue tracker using the following tecnologies: `JSF 2.x`, `Primefaces(3.3.1)`, `CDI(Weld 1.1.8)`, `CODI(1.0.5)`, `Conventions(0.9.5)` and `Hibernate 4.1.4` with the intention of showing some features of each tecnologies and how to integrate them in a real project.
+This project is a simple issue tracker using the following tecnologies: `JSF 2.x`, `Primefaces(3.3.1)`, `CDI(Weld 1.1.8)`, `CODI(1.0.5)`, `Conventions(0.9.4)` and `Hibernate 4.1.4` with the intention of showing some features of each tecnologies and how to integrate them in a real project.
   
 Its (yet another version of) another version of the project https://github.com/rponte/jsf-issuetracker-project which is built during the courses and trainings of **JSF 2, Spring and Hibernate** lead by [TriadWorks](http://www.triadworks.com.br).
 
@@ -66,7 +66,7 @@ Information ++
 <<<<<<<<<<<<<< Português  >>>>>>>>>>>>>
 ---------------------------------------
 
-Projeto simples de uma aplicação de Issue Tracker com `JSF 2.x`, `Primefaces(3.3.1)`, `CDI(Weld 1.1.8)`, `CODI(1.0.5)`, `Conventions(0.9.5)` e `Hibernate 4.1.4` com o objetivo de explanar as principais features de cada tecnologia e como integra-las de maneira produtiva em um projeto real. 
+Projeto simples de uma aplicação de Issue Tracker com `JSF 2.x`, `Primefaces(3.3.1)`, `CDI(Weld 1.1.8)`, `CODI(1.0.5)`, `Conventions(0.9.4)` e `Hibernate 4.1.4` com o objetivo de explanar as principais features de cada tecnologia e como integra-las de maneira produtiva em um projeto real. 
 
 Esta é mais uma versão do projeto https://github.com/rponte/jsf-issuetracker-project que é construído durante os cursos e treinamentos de **JSF 2, Spring e Hibernate** ministrados pela [TriadWorks](http://www.triadworks.com.br).
 
