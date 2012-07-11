@@ -48,13 +48,13 @@
 							</f:facet>
 							<h:commandLink value="editar"
 								action="#{usuarioBean.preparaParaAlterar(usuario)}">
-								<f:ajax render="@form" />
+								<p:ajax render="@form" />
 							</h:commandLink>  &#160;
 							<h:commandLink value="remover"
 								action="#{usuarioBean.remove}"
 								disabled="#{usuario.id eq usuarioLogado.id}"
 								onclick="return confirm('Deseja realmente remover este usuário?');">
-								<f:ajax render="@form :mensagens" />
+								<p:ajax render="@form :mensagens" />
 								<f:setPropertyActionListener 
 									target="#{usuarioBean.usuario}" value="#{usuario}" />
 							</h:commandLink>
