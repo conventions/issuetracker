@@ -2,8 +2,7 @@ package br.com.triadworks.issuetracker.service.impl;
 
 import javax.inject.Inject;
 
-import com.jsf.conventions.qualifier.CustomService;
-import com.jsf.conventions.qualifier.PersistentClass;
+import org.conventionsframework.qualifier.PersistentClass;
 
 import br.com.triadworks.issuetracker.model.Usuario;
 import br.com.triadworks.issuetracker.service.Autenticador;

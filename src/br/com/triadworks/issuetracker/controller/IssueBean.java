@@ -6,12 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.inject.Produces;
-import javax.faces.component.UIForm;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+import org.conventionsframework.bean.BaseMBean;
+import org.conventionsframework.bean.state.CrudState;
 import org.primefaces.event.SelectEvent;
 
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
@@ -19,12 +20,6 @@ import br.com.triadworks.issuetracker.model.Issue;
 import br.com.triadworks.issuetracker.model.TipoDeIssue;
 import br.com.triadworks.issuetracker.model.Usuario;
 import br.com.triadworks.issuetracker.service.IssueService;
-import br.com.triadworks.issuetracker.service.UsuarioService;
-
-import com.jsf.conventions.bean.BaseMBean;
-import com.jsf.conventions.bean.state.CrudState;
-import com.jsf.conventions.qualifier.PersistentClass;
-import com.jsf.conventions.qualifier.Service;
 
 @Named
 @ViewAccessScoped

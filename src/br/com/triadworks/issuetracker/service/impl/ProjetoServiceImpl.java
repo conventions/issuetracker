@@ -4,16 +4,15 @@ import java.util.List;
 
 import javax.inject.Named;
 
+import org.conventionsframework.exception.BusinessException;
+import org.conventionsframework.qualifier.PersistentClass;
+import org.conventionsframework.service.impl.CustomHibernateService;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.triadworks.issuetracker.model.Projeto;
 import br.com.triadworks.issuetracker.service.ProjetoService;
-
-import com.jsf.conventions.exception.BusinessException;
-import com.jsf.conventions.qualifier.PersistentClass;
-import com.jsf.conventions.service.impl.CustomHibernateService;
 
 @Named("projetoService")//é acessado diretamente na tela(combo de projetos)
 @PersistentClass(Projeto.class)

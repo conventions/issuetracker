@@ -6,6 +6,10 @@ import java.util.Map;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 
+import org.conventionsframework.exception.BusinessException;
+import org.conventionsframework.model.WrappedData;
+import org.conventionsframework.qualifier.PersistentClass;
+import org.conventionsframework.service.impl.CustomHibernateService;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -16,11 +20,6 @@ import br.com.triadworks.issuetracker.model.Comentario;
 import br.com.triadworks.issuetracker.model.Issue;
 import br.com.triadworks.issuetracker.model.TipoDeIssue;
 import br.com.triadworks.issuetracker.service.IssueService;
-
-import com.jsf.conventions.exception.BusinessException;
-import com.jsf.conventions.model.WrappedData;
-import com.jsf.conventions.qualifier.PersistentClass;
-import com.jsf.conventions.service.impl.CustomHibernateService;
 
 @Dependent
 @Named("issueService")

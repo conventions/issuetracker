@@ -8,10 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import com.jsf.conventions.entitymanager.provider.CustomEntityManagerProvider;
-import com.jsf.conventions.entitymanager.provider.EntityManagerProvider;
-import com.jsf.conventions.entitymanager.provider.Type;
-import com.jsf.conventions.qualifier.ConventionsEntityManager;
+import org.conventionsframework.entitymanager.CustomEntityManagerProvider;
+import org.conventionsframework.entitymanager.EntityManagerProvider;
+import org.conventionsframework.qualifier.ConventionsEntityManager;
+import org.conventionsframework.qualifier.Type;
+
 
 @Specializes
 @ConventionsEntityManager(type=Type.CUSTOM)

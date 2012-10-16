@@ -17,7 +17,7 @@
 			<default-locale>pt_BR</default-locale>
 			<supported-locale>pt_BR</supported-locale>
 		</locale-config>
-		<action-listener>com.jsf.conventions.exception.ConventionsActionListenerImpl</action-listener>
+		<action-listener>org.conventionsframework.exception.ConventionsActionListenerImpl</action-listener>
 	</application>
 
 	<!-- <managed-bean> <managed-bean-name>usuarioWeb</managed-bean-name> <managed-bean-class> 

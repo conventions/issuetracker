@@ -2,10 +2,10 @@ package br.com.triadworks.issuetracker.service;
 
 import java.util.List;
 
+import org.conventionsframework.service.BaseService;
+
 import br.com.triadworks.issuetracker.model.Comentario;
 import br.com.triadworks.issuetracker.model.Issue;
-
-import com.jsf.conventions.service.BaseService;
 
 public interface IssueService extends BaseService<Issue, Long> {
 

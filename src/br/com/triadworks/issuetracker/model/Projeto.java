@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-import com.jsf.conventions.model.SelectItemAware;
+import org.conventionsframework.model.SelectItemAware;
 
 @Entity
 public class Projeto implements Serializable,SelectItemAware {

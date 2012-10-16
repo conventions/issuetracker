@@ -4,14 +4,11 @@ import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
 import org.apache.myfaces.extensions.cdi.core.api.Advanced;
+import org.conventionsframework.converter.AbstractBaseConverter;
+import org.conventionsframework.qualifier.Service;
+import org.conventionsframework.service.BaseService;
 
 import br.com.triadworks.issuetracker.model.Projeto;
-import br.com.triadworks.issuetracker.model.Usuario;
-import br.com.triadworks.issuetracker.service.ProjetoService;
-
-import com.jsf.conventions.converter.AbstractBaseConverter;
-import com.jsf.conventions.qualifier.CustomService;
-import com.jsf.conventions.service.BaseService;
 
 @Advanced
 @FacesConverter(value="projetoConverter",forClass=Projeto.class)
@@ -19,7 +16,7 @@ public class ProjetoConverter extends AbstractBaseConverter{
 
 	
 	 @Inject
-	 public void setService(@CustomService(entity=Projeto.class) BaseService  projetoService){
+	 public void setService(@Service(entity=Projeto.class) BaseService  projetoService){
 		 super.setBaseService(projetoService);
 	 }
 }

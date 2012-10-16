@@ -7,12 +7,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+import org.conventionsframework.bean.BaseMBean;
 
 import br.com.triadworks.issuetracker.controller.UsuarioWeb;
 import br.com.triadworks.issuetracker.model.Issue;
 import br.com.triadworks.issuetracker.service.IssueService;
-
-import com.jsf.conventions.bean.BaseMBean;
 
 @Named
 @ViewAccessScoped

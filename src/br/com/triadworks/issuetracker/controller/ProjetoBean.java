@@ -5,20 +5,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+import org.conventionsframework.bean.BaseMBean;
+import org.conventionsframework.bean.state.CrudState;
+import org.conventionsframework.paginator.Paginator;
+import org.conventionsframework.qualifier.Service;
+import org.conventionsframework.service.BaseService;
 
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
-import br.com.triadworks.issuetracker.model.Issue;
 import br.com.triadworks.issuetracker.model.Projeto;
 import br.com.triadworks.issuetracker.service.ProjetoService;
-
-import com.injection.test.InjectionTest;
-import com.injection.test.Test;
-import com.jsf.conventions.bean.BaseMBean;
-import com.jsf.conventions.bean.state.CrudState;
-import com.jsf.conventions.qualifier.CustomService;
-import com.jsf.conventions.qualifier.Service;
-import com.jsf.conventions.service.BaseService;
-import com.jsf.conventions.util.Paginator;
 
 @ViewAccessScoped
 @Named
@@ -29,29 +24,12 @@ public class ProjetoBean extends BaseMBean<Projeto> {
 	@Inject
 	private ProjetoService projetoService;
 	
-	@SuppressWarnings("rawtypes")
-	private Paginator paginator;
-	
-	@Inject
-	public void initPaginator(@CustomService(entity=Projeto.class)BaseService baseService){
-		paginator = new Paginator(baseService);
-	}
-	
-	@Test(value=Issue.class)
-	@Inject
-	private InjectionTest injectionTest;
-	
-	@Override
-	public Paginator getPaginator() {
-		// TODO Auto-generated method stub
-		return this.paginator;
-	}
+ 
 	@Inject
 	private FacesUtils facesUtils;
 	
 	public void lista() {
 		setBeanState(CrudState.FIND);
-		System.out.println("Injection test:"+injectionTest.getClass().getSimpleName());
 	}
 	
 	@PostConstruct

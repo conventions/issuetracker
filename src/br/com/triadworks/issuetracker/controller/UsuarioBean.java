@@ -6,16 +6,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+import org.conventionsframework.bean.BaseMBean;
+import org.conventionsframework.qualifier.SecurityMethod;
 
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
 import br.com.triadworks.issuetracker.model.Usuario;
 import br.com.triadworks.issuetracker.service.UsuarioService;
-
-import com.jsf.conventions.bean.BaseMBean;
-import com.jsf.conventions.qualifier.CustomService;
-import com.jsf.conventions.qualifier.PersistentClass;
-import com.jsf.conventions.qualifier.SecurityMethod;
-import com.jsf.conventions.qualifier.Service;
 
 @Named
 @ViewAccessScoped

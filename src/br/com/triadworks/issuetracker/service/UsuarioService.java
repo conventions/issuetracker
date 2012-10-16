@@ -2,9 +2,9 @@ package br.com.triadworks.issuetracker.service;
 
 import java.util.List;
 
-import br.com.triadworks.issuetracker.model.Usuario;
+import org.conventionsframework.service.BaseService;
 
-import com.jsf.conventions.service.BaseService;
+import br.com.triadworks.issuetracker.model.Usuario;
 
 public interface UsuarioService extends BaseService<Usuario, Long>{
 

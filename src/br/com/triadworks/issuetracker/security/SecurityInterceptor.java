@@ -1,18 +1,14 @@
 package br.com.triadworks.issuetracker.security;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 
 import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
+
+import org.conventionsframework.qualifier.SecurityMethod;
+import org.conventionsframework.security.SecurityMethodInterceptor;
 
 import br.com.triadworks.issuetracker.qualifier.UserRole;
-
-import com.jsf.conventions.qualifier.SecurityMethod;
-import com.jsf.conventions.security.SecurityMethodInterceptor;
-import com.jsf.conventions.util.MessagesController;
 
 
  
