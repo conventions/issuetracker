@@ -3,31 +3,26 @@ package br.com.triadworks.issuetracker.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 
 import org.conventionsframework.exception.BusinessException;
-import org.conventionsframework.model.WrappedData;
+import org.conventionsframework.model.SearchModel;
 import org.conventionsframework.qualifier.PersistentClass;
-import org.conventionsframework.service.impl.CustomHibernateService;
+import org.conventionsframework.service.impl.BaseServiceImpl;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
-import org.primefaces.model.SortOrder;
 
 import br.com.triadworks.issuetracker.model.Comentario;
 import br.com.triadworks.issuetracker.model.Issue;
 import br.com.triadworks.issuetracker.model.TipoDeIssue;
 import br.com.triadworks.issuetracker.service.IssueService;
 
-@Dependent
 @Named("issueService")
 @PersistentClass(Issue.class)
-public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
+public class IssueServiceImpl extends BaseServiceImpl<Issue>
 		implements IssueService {
-
-	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Issue carrega(Long id) {
@@ -39,13 +34,13 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 		DetachedCriteria dc = getDetachedCriteria();
 		dc.createAlias("assinadoPara", "assinadoPara");
 		dc.add(Restrictions.eq("assinadoPara.id", id));
-		return findByCriteria(dc);
+		return getDao().findByCriteria(dc);
 	}
 
 	@Override
 	@org.apache.myfaces.extensions.cdi.jpa.api.Transactional
 	public void comenta(Long id, Comentario comentario) {
-		Issue issue = this.load(id);
+		Issue issue = dao.load(id);
 		issue.comenta(comentario); // thanks persistence context ;-)
 	}
 
@@ -78,29 +73,25 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 
 	@Override
 	public void remove(Issue issue) {
-		super.remove((Issue) getDao().load(issue.getId()));
+		super.remove(dao.load(issue.getId()));
 	}
 
 	@Override
 	public void atualiza(Issue issue) {
-		super.saveOrUpdate(issue);
+		dao.saveOrUpdate(issue);
 
 	}
-
+	
 	/**
 	 * metodo invocado toda vez que uma lazy datatable de um MB(ex:  <p:datatable value="#{issueBean.dataModel}") que usa
 	 * esta service for atualizada(via ajax ou não)
 	 */
 	@Override
-	public WrappedData<Issue> configFindPaginated(int first,
-			int pageSize, String sortField, SortOrder sortOrder,
-			Map<String, String> filters, Map<String, Object> externalFilter) {
-		
+	public DetachedCriteria configPagination(SearchModel<Issue> searchModel) {
 		
 		DetachedCriteria dc = getDetachedCriteria();
-		
 		//configura paginação para o dashboard
-		Long idUsuario = (Long) externalFilter.get("uID");//parametro passado atraves do mapa de parametros {@see DashboardBean#preload()}
+		Long idUsuario = (Long) searchModel.getFilter().get("uID");//parametro passado atraves do mapa de parametros {@see DashboardBean#preload()}
 		if(idUsuario != null){
 			dc.createAlias("assinadoPara", "assinadoPara");
 			dc.add(Restrictions.eq("assinadoPara.id", idUsuario));
@@ -111,9 +102,10 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 		
 		// configura filtros das colunas da tabela, somente necessário se houver relacionamentos(ex:issue->projeto)
 		// ou para alterar comportamento padrão dos filtros {@see StandaloneHenericHibernateDao#addBasicFilterRestrictions}
-		if (filters != null && !filters.isEmpty()) {
+		Map<String,String> tableFilters = searchModel.getDatatableFilter();
+		if (tableFilters != null && !tableFilters.isEmpty()) {
 			
-			String id = filters.get("id");
+			String id = tableFilters.get("id");
 			
 			if(id != null && !"".endsWith(id)){
 				try{
@@ -122,17 +114,17 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 					e.printStackTrace();
 				}
 			}
-		    nomeProjeto = filters.get("projeto.nome");
+		    nomeProjeto = tableFilters.get("projeto.nome");
 			if(nomeProjeto != null){
 				dc.createAlias("projeto", "projeto");
 				dc.add(Restrictions.ilike("projeto.nome", nomeProjeto,MatchMode.ANYWHERE));
 			}
-			String sumario = filters.get("sumario");
+			String sumario = tableFilters.get("sumario");
 			if(sumario != null){
 				dc.add(Restrictions.ilike("sumario", sumario,MatchMode.ANYWHERE));
 			}
 			
-			String tipo = filters.get("tipo");
+			String tipo = tableFilters.get("tipo");
 			if(tipo != null){
 				if(TipoDeIssue.BUG.name().equals(tipo)){
 					dc.add(Restrictions.eq("tipo", TipoDeIssue.BUG));
@@ -143,13 +135,14 @@ public class IssueServiceImpl extends CustomHibernateService<Issue, Long>
 			}
 		}
 		//cria join para ordenar por "assinadoPara"
+		String sortField = searchModel.getSortField(); 
 		if(sortField != null && sortField.equals("assinadoPara.nome") && idUsuario == null){ //se idUsuario for != null é pq o alias ja foi criado
 			dc.createAlias("assinadoPara", "assinadoPara",JoinType.LEFT_OUTER_JOIN);
 		}
 		if(sortField != null && sortField.equals("projeto.nome") && nomeProjeto == null){//se nome projeto != null é pq o alias ja foi criado
 			dc.createAlias("projeto", "projeto",JoinType.LEFT_OUTER_JOIN);
 		}
-		return getDao().findPaginated(first, pageSize, sortField, sortOrder,dc);
+		return dc;
 	}
 
 }

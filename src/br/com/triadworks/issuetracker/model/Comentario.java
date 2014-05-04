@@ -12,8 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 
+import org.conventionsframework.model.BaseEntity;
+
 @Entity
-public class Comentario implements Serializable {
+public class Comentario implements Serializable,BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	

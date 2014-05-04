@@ -57,7 +57,7 @@ public class ProjetoBean extends BaseMBean<Projeto> {
 	}
 	
 	public void preparaParaAlterar(Projeto projeto) {
-		this.projeto = projetoService.get(projeto.getId()); // evita LazyInitializationException
+		this.projeto = projetoService.getDao().get(projeto.getId()); // evita LazyInitializationException
 		setBeanState(CrudState.UPDATE);
 	}
 	

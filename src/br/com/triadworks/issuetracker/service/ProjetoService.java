@@ -6,7 +6,7 @@ import org.conventionsframework.service.BaseService;
 
 import br.com.triadworks.issuetracker.model.Projeto;
 
-public interface ProjetoService extends BaseService<Projeto,Long>{
+public interface ProjetoService extends BaseService<Projeto>{
 
 	public List<Projeto> listaTudo();
 

@@ -1,6 +1,7 @@
 package br.com.triadworks.issuetracker.security;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,19 +11,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.myfaces.extensions.cdi.core.api.provider.BeanManagerProvider;
 
 import br.com.triadworks.issuetracker.controller.UsuarioWeb;
 import br.com.triadworks.issuetracker.controller.util.BeanManagerController;
 
-@WebFilter(urlPatterns="/*")
+@WebFilter(urlPatterns="/sadasda")
 public class SecurityFilter implements Filter {
 
 	private static final String LOGIN_PAGE = "/pages/login.xhtml";
 	private static final String FACES_RESOURCES = "/javax.faces.resource";
-	
 	
 	@Override
 	public void init(FilterConfig config) throws ServletException {}
@@ -45,9 +42,9 @@ public class SecurityFilter implements Filter {
 	private boolean isUsuarioLogado(HttpServletRequest request) {
 //		HttpSession session = request.getSession();
 //		UsuarioWeb usuarioWeb = (UsuarioWeb) session.getAttribute("usuarioWeb");//OWB não salva sessionScope na sessao http pois é "mais lento"
-		UsuarioWeb usuarioWeb = (UsuarioWeb) BeanManagerController.getBeanByTypeAndName(UsuarioWeb.class,"usuarioWeb");
-		return usuarioWeb != null
-        			&& usuarioWeb.isLogado();
+//		UsuarioWeb usuarioWeb =  BeanManagerController.getBeanByType(UsuarioWeb.class);
+		UsuarioWeb usuarioWeb =  (UsuarioWeb) BeanManagerController.getBeanByName("usuarioWeb");
+		return usuarioWeb != null && usuarioWeb.isLogado();
 	}
 
 	private boolean isUrlPermitida(HttpServletRequest request) {

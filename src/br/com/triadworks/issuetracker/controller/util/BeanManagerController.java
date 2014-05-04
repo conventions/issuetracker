@@ -12,6 +12,7 @@ import javax.enterprise.inject.spi.BeanManager;
 
 import org.apache.myfaces.extensions.cdi.core.api.provider.BeanManagerProvider;
 
+
 /**
  *
  * @author rpestano
@@ -34,7 +35,7 @@ public class BeanManagerController {
 	        if(beans != null && !beans.isEmpty()){
 	        	Bean bean = beans.iterator().next();
 	        	CreationalContext ctx = bm.createCreationalContext(bean);  
-	        	Object o = bm.getReference(bean, bean.getClass(), ctx);  
+	        	Object o = bm.getReference(bean, bean.getBeanClass(), ctx);  
 	        	return o;
 	        }
     	}catch (Exception e) {
@@ -44,8 +45,12 @@ public class BeanManagerController {
     }
     
     @SuppressWarnings({"unchecked","rawtypes"})
-	public static Object getBeanByTypeAndName(Class type,String name) {
-    	return BeanManagerProvider.getInstance().getContextualReference(type, name);
+	public static <T> T getBeanByType(Class<T> type) {
+    	BeanManager bm = BeanManagerProvider.getInstance().getBeanManager();
+        Bean bean = bm.getBeans(type).iterator().next();
+        CreationalContext ctx = bm.createCreationalContext(bean); // could be inlined below
+        T o = (T) bm.getReference(bean, type, ctx); // could be inlined with return
+    	return o;
     }
     	
 }

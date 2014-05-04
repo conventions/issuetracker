@@ -7,7 +7,7 @@ import org.conventionsframework.service.BaseService;
 import br.com.triadworks.issuetracker.model.Comentario;
 import br.com.triadworks.issuetracker.model.Issue;
 
-public interface IssueService extends BaseService<Issue, Long> {
+public interface IssueService extends BaseService<Issue> {
 
 	List<Issue> listaTudo();
 

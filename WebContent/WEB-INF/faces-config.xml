@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-    http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
-	version="2.1">
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
 	<application>
 		<!-- Internacionalização -->
@@ -17,8 +14,13 @@
 			<default-locale>pt_BR</default-locale>
 			<supported-locale>pt_BR</supported-locale>
 		</locale-config>
-		<action-listener>org.conventionsframework.exception.ConventionsActionListenerImpl</action-listener>
 	</application>
+	
+	 <factory>
+        <exception-handler-factory>
+            org.conventionsframework.exception.ConventionsExceptionHandlerFactory
+        </exception-handler-factory>
+     </factory>
 
 	<!-- <managed-bean> <managed-bean-name>usuarioWeb</managed-bean-name> <managed-bean-class> 
 		br.com.triadworks.issuetracker.controller.UsuarioWeb </managed-bean-class> 
@@ -42,7 +44,7 @@
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>errorPage</from-outcome>
-			<to-view-id>/error.faces</to-view-id>
+			<to-view-id>/error.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

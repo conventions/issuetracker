@@ -8,21 +8,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.conventionsframework.entitymanager.CustomEntityManagerProvider;
-import org.conventionsframework.entitymanager.EntityManagerProvider;
-import org.conventionsframework.qualifier.ConventionsEntityManager;
-import org.conventionsframework.qualifier.Type;
+import org.conventionsframework.producer.DefaultEntityManagerProducer;
 
 
-@Specializes
-@ConventionsEntityManager(type=Type.CUSTOM)
 @RequestScoped
-public class IssueTrackerProvider extends CustomEntityManagerProvider implements EntityManagerProvider{
+@Specializes
+public class IssueTrackerProvider extends DefaultEntityManagerProducer{
 	
 	 
-	private static final long serialVersionUID = 1L;
-	
- 
 	private EntityManager entityManager;
 	
 	 
@@ -33,7 +26,8 @@ public class IssueTrackerProvider extends CustomEntityManagerProvider implements
 	}
 
 	/**
-	 * The producer is required so CODI can handlle @Transactional methods
+	 * The producer is required so CODI can handlle @Transactional methods and
+	 * also conventions needs for entity manager injection in BaseService
 	 */
 	@Produces
 	@RequestScoped

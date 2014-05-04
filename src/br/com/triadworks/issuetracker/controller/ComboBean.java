@@ -21,11 +21,15 @@ public class ComboBean implements Serializable {
 	
 	private List<Usuario> usuarios;
 	
-	@Inject @Service(entity=Usuario.class)
-	private BaseService usuarioService;
+	/*
+	 * services genericas, apenas para queries em banco
+	 * para regras de negocio @see ProjetoService  e @see IssueService
+	 */
+	@Inject @Service
+	private BaseService<Usuario> usuarioService;
 	
-	@Inject @Service(entity=Projeto.class)
-	private BaseService projetoService;
+	@Inject @Service
+	private BaseService<Projeto> projetoService;
 	
 	
 	public void setProjetoService(){
@@ -34,37 +38,17 @@ public class ComboBean implements Serializable {
 
 	public List<Projeto> getProjetos() {
 		if(projetos == null){
-			projetos = projetoService.findAll();
+			projetos = projetoService.getDao().findAll();
 		}
 		return projetos;
 	}
 
 	public List<Usuario> getUsuarios() {
 		if(usuarios == null){
-			usuarios = usuarioService.findAll();
+			usuarios = usuarioService.getDao().findAll();
 		}
 		return usuarios;
 	}
 
-	public BaseService getUsuarioService() {
-		return usuarioService;
-	}
-
-	public void setUsuarioService(BaseService usuarioService) {
-		this.usuarioService = usuarioService;
-	}
-
-	public BaseService getProjetoService() {
-		return projetoService;
-	}
-
-	public void setProjetoService(BaseService projetoService) {
-		this.projetoService = projetoService;
-	}
-
-	
-	 
-
-	
 	
 }

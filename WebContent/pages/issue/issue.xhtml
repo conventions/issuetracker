@@ -6,7 +6,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:conventions="http://java.sun.com/jsf/composite/components/conventions"
 	template="/pages/template/template_padrao.xhtml">
 	
@@ -140,25 +139,25 @@
 					             id="assinadoPara" 
 					             readonly="true" 
 					             required="true" 
-								 converter="usuarioConverter"/> 
+								 /> 
 					
 					<div align="right">
 						<h:commandLink value="Voltar"
 							immediate="true" 
 							action="#{issueBean.voltar}" >
-					        <pe:resetInput for="@form"/>  
+					        <p:resetInput target="@form"/>  
 							<f:ajax execute="@form" render="@form" />
 						</h:commandLink> &#160;
 						<h:commandButton value="Inserir" 
 							action="#{issueBean.adiciona}"
 							rendered="#{issueBean.adicionando}">
-							 <pe:resetInput for="@form"/>  
+							 <p:resetInput target="@form"/>  
 							<p:ajax process="@form" update="@form" />
 						</h:commandButton>
 						<h:commandButton value="Alterar" 
 							action="#{issueBean.altera}"
 							rendered="#{issueBean.editando}">
-							 <pe:resetInput for="@form"/>  
+							 <p:resetInput target="@form"/>  
 							<p:ajax process="@form" update="@form" />
 						</h:commandButton>
 					</div>

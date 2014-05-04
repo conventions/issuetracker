@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.interceptor.Interceptor;
 
 import org.conventionsframework.qualifier.SecurityMethod;
-import org.conventionsframework.security.SecurityMethodInterceptor;
+import org.conventionsframework.security.BaseSecurityInterceptor;
 
 import br.com.triadworks.issuetracker.qualifier.UserRole;
 
@@ -14,7 +14,7 @@ import br.com.triadworks.issuetracker.qualifier.UserRole;
  
 @Interceptor
 @SecurityMethod
-public class SecurityInterceptor extends SecurityMethodInterceptor implements Serializable{
+public class SecurityInterceptor extends BaseSecurityInterceptor implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -39,5 +39,7 @@ public class SecurityInterceptor extends SecurityMethodInterceptor implements Se
 		}
 		return false;
 	}
+	
+	
 
 }

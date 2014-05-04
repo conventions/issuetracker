@@ -6,7 +6,7 @@ import org.conventionsframework.service.BaseService;
 
 import br.com.triadworks.issuetracker.model.Usuario;
 
-public interface UsuarioService extends BaseService<Usuario, Long>{
+public interface UsuarioService extends BaseService<Usuario>{
 
 	public List<Usuario> listaTudo();
 

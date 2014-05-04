@@ -8,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import org.conventionsframework.model.BaseEntity;
+
 @Entity
-public class Usuario implements Serializable {
+public class Usuario implements Serializable,BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	

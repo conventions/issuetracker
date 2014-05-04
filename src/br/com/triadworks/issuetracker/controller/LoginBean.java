@@ -55,13 +55,13 @@ public class LoginBean implements Serializable {
 			admin.setLogin("admin");
 			admin.setSenha("admin");
 			admin.setNome("Administrator Godlike");
-			usuarioService.save(admin);
+			usuarioService.store(admin);
 			Usuario guest = new Usuario();
 			guest.setEmail("guest@guest.com");
 			guest.setLogin("guest");
 			guest.setSenha("guest");
 			guest.setNome("Guest");
-			usuarioService.save(guest);
+			usuarioService.store(guest);
 		}
 	}
 

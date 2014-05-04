@@ -11,6 +11,12 @@
 	<ui:define name="cabecalho"></ui:define>
 	
 <ui:define name="conteudo">
+        <f:metadata>
+            <f:viewParam name="page" value="#{usuarioWeb.pageRecovery}"/>
+        </f:metadata>
+        <f:event type="preRenderView" listener="#{usuarioWeb.init}"/>
+        <p:growl id="growl" escape="false" sticky="true" autoUpdate="true" severity="warn" globalOnly="true"/>
+
 		<div id="container" align="left">
 			<h:form id="form" prependId="true">
 			<p:focus/>

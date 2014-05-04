@@ -6,7 +6,7 @@ import javax.inject.Named;
 
 import org.conventionsframework.exception.BusinessException;
 import org.conventionsframework.qualifier.PersistentClass;
-import org.conventionsframework.service.impl.CustomHibernateService;
+import org.conventionsframework.service.impl.BaseServiceImpl;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -16,7 +16,7 @@ import br.com.triadworks.issuetracker.service.UsuarioService;
 
 @Named("usuarioService")
 @PersistentClass(Usuario.class) 
-public class UsuarioServiceImpl extends CustomHibernateService<Usuario, Long> implements UsuarioService {
+public class UsuarioServiceImpl extends BaseServiceImpl<Usuario> implements UsuarioService {
 
 
 	private static final long serialVersionUID = 1L;
@@ -41,7 +41,7 @@ public class UsuarioServiceImpl extends CustomHibernateService<Usuario, Long> im
 
 	@Override
 	public void atualiza(Usuario usuario) {
-		super.saveOrUpdate(usuario);
+		dao.saveOrUpdate(usuario);
 		
 	}
 
@@ -66,7 +66,7 @@ public class UsuarioServiceImpl extends CustomHibernateService<Usuario, Long> im
 
 		if(usuario != null && !"".endsWith(usuario.getLogin())){
 			dc.add(Restrictions.ilike("login", usuario.getLogin(), MatchMode.EXACT));
-			return (super.getRowCount(dc) > 0);
+			return (dao.getRowCount(dc) > 0);
  		}
 		return false;
 	}

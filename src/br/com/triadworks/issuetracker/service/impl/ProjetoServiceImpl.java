@@ -5,8 +5,7 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.conventionsframework.exception.BusinessException;
-import org.conventionsframework.qualifier.PersistentClass;
-import org.conventionsframework.service.impl.CustomHibernateService;
+import org.conventionsframework.service.impl.BaseServiceImpl;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -15,8 +14,7 @@ import br.com.triadworks.issuetracker.model.Projeto;
 import br.com.triadworks.issuetracker.service.ProjetoService;
 
 @Named("projetoService")//é acessado diretamente na tela(combo de projetos)
-@PersistentClass(Projeto.class)
-public class ProjetoServiceImpl extends CustomHibernateService<Projeto, Long> implements ProjetoService {
+public class ProjetoServiceImpl extends BaseServiceImpl<Projeto> implements ProjetoService {
 
 
 	@SuppressWarnings("unchecked")
@@ -40,7 +38,7 @@ public class ProjetoServiceImpl extends CustomHibernateService<Projeto, Long> im
 
 	@Override
 	public void atualiza(Projeto projeto) {
-		super.saveOrUpdate(projeto);
+		dao.saveOrUpdate(projeto);
 		
 	}
 
@@ -59,7 +57,7 @@ public class ProjetoServiceImpl extends CustomHibernateService<Projeto, Long> im
 
 		if(projeto != null && !"".endsWith(projeto.getNome())){
 			dc.add(Restrictions.ilike("nome", projeto.getNome(), MatchMode.EXACT));
-			return (super.getRowCount(dc) > 0);
+			return (dao.getRowCount(dc) > 0);
  		}
 		return false;
 	}

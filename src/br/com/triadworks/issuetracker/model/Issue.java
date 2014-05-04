@@ -25,8 +25,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.conventionsframework.model.BaseEntity;
+
 @Entity
-public class Issue implements Serializable {
+public class Issue implements Serializable ,BaseEntity{
 
 	private static final long serialVersionUID = 1L;
 
@@ -162,7 +164,7 @@ public class Issue implements Serializable {
 	
 	@Override
 	public String toString() {
-		return ""+id ;
+		return descricao ;
 	}
 	@Override
 	public int hashCode() {

@@ -8,10 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-import org.conventionsframework.model.SelectItemAware;
+import org.conventionsframework.model.BaseEntity;
 
 @Entity
-public class Projeto implements Serializable,SelectItemAware {
+public class Projeto implements Serializable,BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -56,14 +56,10 @@ public class Projeto implements Serializable,SelectItemAware {
 			return false;
 		return true;
 	}
-	@Override
-	public String getLabel() {
-		 
-		return this.nome;
-	}
+	 
 	@Override
 	public String toString() {
-		return ""+id;
+		return nome;
 	}
 	
 	

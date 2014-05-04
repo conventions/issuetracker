@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import javax.inject.Named;
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
 import org.conventionsframework.bean.BaseMBean;
 import org.conventionsframework.bean.state.CrudState;
+import org.conventionsframework.qualifier.Service;
 import org.primefaces.event.SelectEvent;
 
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
@@ -28,28 +30,24 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	
 	private Issue issue = new Issue();
 	
+	@Inject
+	private IssueService issueService;
+	@Inject
 	private UsuarioWeb usuarioWeb;
+	
+	@Inject
 	private FacesUtils facesUtils;
 
 	public IssueBean() {
 	}
 
-	@Inject
-	public IssueBean(UsuarioWeb usuarioWeb, FacesUtils facesUtils) {
-		
-		this.usuarioWeb = usuarioWeb;
-		this.facesUtils = facesUtils;
-		this.setBeanState(CrudState.FIND);
+	@PostConstruct
+	public void init(){
+		super.setBaseService(issueService);
+		setBeanState(CrudState.FIND);
+		super.init();
 	}
 	
-	@Inject
-	public void setBeanService(IssueService issueService){
-		super.setBaseService(issueService);
-	}
-
-	IssueService getIssueService(){
-		return (IssueService) super.getBaseService();
-	}
 	
 	public void lista() {
 		setBeanState(CrudState.FIND);
@@ -65,24 +63,24 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	}
 	
 	public void adiciona() {
-		getIssueService().salva(issue);
+		issueService.salva(issue);
 		facesUtils.adicionaMensagemDeInformacao("Issue adicionada com sucesso!");
 		lista();
 	}
 	
 	public void remove() {
-		getIssueService().remove(issue);
+		issueService.remove(issue);
 		facesUtils.adicionaMensagemDeInformacao("Issue removida com sucesso!");
 		lista();
 	}
 	
 	public void preparaParaAlterar(Issue projeto) {
-		this.issue = getIssueService().get(projeto.getId()); // evita LazyInitializationException
+		this.issue = issueService.getDao().get(projeto.getId()); // evita LazyInitializationException
 		setBeanState(CrudState.UPDATE);
 	}
 	
 	public void altera() {
-		getIssueService().atualiza(issue);
+		issueService.atualiza(issue);
 		facesUtils.adicionaMensagemDeInformacao("Issue atualizada com sucesso!");
 		lista();
 	}
