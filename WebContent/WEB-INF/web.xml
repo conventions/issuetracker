@@ -10,11 +10,11 @@
         <res-auth>Container</res-auth>
     </resource-ref>
     
-    <!-- habilita bean manager para o tomcat (no projeto estamos utilizando BeanManagerProvider fornecido pelo CODI que é independente de container) 
+    
     <resource-env-ref>
         <resource-env-ref-name>IntegrationBeanManager</resource-env-ref-name>
         <resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
-    </resource-env-ref> -->
+    </resource-env-ref>
     
 
 	<!--
@@ -60,22 +60,14 @@
 <!--     </context-param> -->
     
 	
-<!-- 	<listener> -->
-<!--         <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class> -->
-<!--     </listener> -->
+	<listener>
+        <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
+    </listener>
 
-<listener>
-		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
-	</listener>
-    
-<!--     <filter> -->
-<!--       <filter-name>conventions</filter-name> -->
-<!--       <filter-class>org.conventionsframework.filter.ConventionsFilter</filter-class> -->
-<!--     </filter> -->
-<!--     <filter-mapping> -->
-<!--     	<filter-name>conventions</filter-name> -->
-<!--     	<url-pattern>/*</url-pattern> -->
-<!--     </filter-mapping> -->
+<!-- <listener> -->
+<!-- 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class> -->
+<!-- 	</listener> -->
+ 
 	
 	<!-- Faces Servlet -->
 	<servlet>

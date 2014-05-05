@@ -8,6 +8,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.conventionsframework.util.BeanManagerController;
+
 import br.com.triadworks.issuetracker.controller.util.FacesUtils;
 import br.com.triadworks.issuetracker.model.Usuario;
 import br.com.triadworks.issuetracker.service.Autenticador;
@@ -48,6 +50,7 @@ public class LoginBean implements Serializable {
 
 	@PostConstruct
 	public void initUser() {
+		BeanManagerController.setBeanManager("java:comp/env/IntegrationBeanManager");
 		List<Usuario> usuarios = usuarioService.listaTudo();
 		if (usuarios == null || usuarios.isEmpty()) {
 			Usuario admin = new Usuario();

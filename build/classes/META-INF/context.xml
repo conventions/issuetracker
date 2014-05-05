@@ -1,0 +1,8 @@
+<Context>
+    <Resource name="IntegrationBeanManager" auth="Container"
+        type="javax.enterprise.inject.spi.BeanManager" 
+        factory="org.apache.webbeans.container.ManagerObjectFactory" />
+        
+        <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/issuetracker" password="postgres" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/issuetracker" username="postgres"/>
+        
+</Context>

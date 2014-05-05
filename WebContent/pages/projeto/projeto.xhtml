@@ -14,7 +14,7 @@
 			<h1>Cadastro de Projeto</h1>
 			
 			<h:form id="projetoForm">
-				<p:remoteCommand name="updateRowCount" process="@none" update="projetoForm:tabela:projetoFooter"/>
+				<p:remoteCommand name="updateRowCount" process="@none" />
 				<t:div id="blocoDePesquisa" rendered="#{projetoBean.pesquisando}">
 					 <p:dataTable
 						id="tabela"

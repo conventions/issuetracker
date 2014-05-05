@@ -8,13 +8,14 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/pages/template/template_padrao.xhtml">
 	
-	<ui:define name="cabecalho"></ui:define>
-	
-<ui:define name="conteudo">
-        <f:metadata>
+	 <f:metadata>
             <f:viewParam name="page" value="#{usuarioWeb.pageRecovery}"/>
         </f:metadata>
         <f:event type="preRenderView" listener="#{usuarioWeb.init}"/>
+	<ui:define name="cabecalho"></ui:define>
+	
+<ui:define name="conteudo">
+       
         <p:growl id="growl" escape="false" sticky="true" autoUpdate="true" severity="warn" globalOnly="true"/>
 
 		<div id="container" align="left">
