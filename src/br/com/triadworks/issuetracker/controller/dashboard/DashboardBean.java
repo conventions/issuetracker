@@ -36,6 +36,7 @@ public class DashboardBean extends BaseMBean<Issue> implements Serializable{
 	 */
 	@PostConstruct
 	public void preload() {
+		init();
 		Long id = usuarioWeb.getUsuario().getId();
 		getSearchModel().addFilter("uID", id);
 //		issues = issueService.getIssuesDoUsuario(id);

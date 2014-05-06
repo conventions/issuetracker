@@ -49,7 +49,7 @@
 							<h:commandLink value="remover"
 								action="#{projetoBean.remove}"
 								onclick="return confirm('Deseja realmente remover este projeto?');">
-								<p:ajax render="@form :mensagens" />
+								<p:ajax update="@form :mensagens" />
 								<f:setPropertyActionListener 
 									target="#{projetoBean.projeto}" value="#{projeto}" />
 							</h:commandLink>
