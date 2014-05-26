@@ -9,6 +9,7 @@ import org.conventionsframework.exception.BusinessException;
 import org.conventionsframework.model.SearchModel;
 import org.conventionsframework.qualifier.PersistentClass;
 import org.conventionsframework.service.impl.BaseServiceImpl;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -26,21 +27,21 @@ public class IssueServiceImpl extends BaseServiceImpl<Issue>
 
 	@Override
 	public Issue carrega(Long id) {
-		return getEntityManager().find(Issue.class, id);
+		return crud.load(id);
 	}
 
 	@Override
 	public List<Issue> getIssuesDoUsuario(Long id) {
-		DetachedCriteria dc = getDetachedCriteria();
-		dc.createAlias("assinadoPara", "assinadoPara");
-		dc.add(Restrictions.eq("assinadoPara.id", id));
-		return getDao().findByCriteria(dc);
+		Criteria crit = getCriteria();
+		crit.createAlias("assinadoPara", "assinadoPara");
+		crit.add(Restrictions.eq("assinadoPara.id", id));
+		return crud.criteria(crit).list();
 	}
 
 	@Override
 	@org.apache.myfaces.extensions.cdi.jpa.api.Transactional
 	public void comenta(Long id, Comentario comentario) {
-		Issue issue = dao.load(id);
+		Issue issue = crud.load(id);
 		issue.comenta(comentario); // thanks persistence context ;-)
 	}
 
@@ -53,7 +54,7 @@ public class IssueServiceImpl extends BaseServiceImpl<Issue>
 
 	@Override
 	public List<Issue> listaTudo() {
-		return getDao().findAll();
+		return crud.listAll();
 	}
 
 	@Override
@@ -73,12 +74,12 @@ public class IssueServiceImpl extends BaseServiceImpl<Issue>
 
 	@Override
 	public void remove(Issue issue) {
-		super.remove(dao.load(issue.getId()));
+		super.remove(issue);
 	}
 
 	@Override
 	public void atualiza(Issue issue) {
-		dao.saveOrUpdate(issue);
+		crud.saveOrUpdate(issue);
 
 	}
 	
@@ -87,14 +88,14 @@ public class IssueServiceImpl extends BaseServiceImpl<Issue>
 	 * esta service for atualizada(via ajax ou não)
 	 */
 	@Override
-	public DetachedCriteria configPagination(SearchModel<Issue> searchModel) {
+	public Criteria configPagination(SearchModel<Issue> searchModel) {
 		
-		DetachedCriteria dc = getDetachedCriteria();
+		Criteria crit = getCriteria();
 		//configura paginação para o dashboard
 		Long idUsuario = (Long) searchModel.getFilter().get("uID");//parametro passado atraves do mapa de parametros {@see DashboardBean#preload()}
 		if(idUsuario != null){
-			dc.createAlias("assinadoPara", "assinadoPara");
-			dc.add(Restrictions.eq("assinadoPara.id", idUsuario));
+			crit.createAlias("assinadoPara", "assinadoPara");
+			crit.add(Restrictions.eq("assinadoPara.id", idUsuario));
 		}
 		
 		
@@ -109,40 +110,40 @@ public class IssueServiceImpl extends BaseServiceImpl<Issue>
 			
 			if(id != null && !"".endsWith(id)){
 				try{
-					dc.add(Restrictions.eq("id", Long.parseLong(id)));
+					crit.add(Restrictions.eq("id", Long.parseLong(id)));
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		    nomeProjeto = tableFilters.get("projeto.nome");
 			if(nomeProjeto != null){
-				dc.createAlias("projeto", "projeto");
-				dc.add(Restrictions.ilike("projeto.nome", nomeProjeto,MatchMode.ANYWHERE));
+				crit.createAlias("projeto", "projeto");
+				crit.add(Restrictions.ilike("projeto.nome", nomeProjeto,MatchMode.ANYWHERE));
 			}
 			String sumario = tableFilters.get("sumario");
 			if(sumario != null){
-				dc.add(Restrictions.ilike("sumario", sumario,MatchMode.ANYWHERE));
+				crit.add(Restrictions.ilike("sumario", sumario,MatchMode.ANYWHERE));
 			}
 			
 			String tipo = tableFilters.get("tipo");
 			if(tipo != null){
 				if(TipoDeIssue.BUG.name().equals(tipo)){
-					dc.add(Restrictions.eq("tipo", TipoDeIssue.BUG));
+					crit.add(Restrictions.eq("tipo", TipoDeIssue.BUG));
 				}
 				else if(TipoDeIssue.FEATURE.name().equals(tipo)){
-					dc.add(Restrictions.eq("tipo", TipoDeIssue.FEATURE));
+					crit.add(Restrictions.eq("tipo", TipoDeIssue.FEATURE));
 				}
 			}
 		}
 		//cria join para ordenar por "assinadoPara"
 		String sortField = searchModel.getSortField(); 
 		if(sortField != null && sortField.equals("assinadoPara.nome") && idUsuario == null){ //se idUsuario for != null é pq o alias ja foi criado
-			dc.createAlias("assinadoPara", "assinadoPara",JoinType.LEFT_OUTER_JOIN);
+			crit.createAlias("assinadoPara", "assinadoPara",JoinType.LEFT_OUTER_JOIN);
 		}
 		if(sortField != null && sortField.equals("projeto.nome") && nomeProjeto == null){//se nome projeto != null é pq o alias ja foi criado
-			dc.createAlias("projeto", "projeto",JoinType.LEFT_OUTER_JOIN);
+			crit.createAlias("projeto", "projeto",JoinType.LEFT_OUTER_JOIN);
 		}
-		return dc;
+		return crit;
 	}
 
 }

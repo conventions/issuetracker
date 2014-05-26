@@ -38,14 +38,14 @@ public class ComboBean implements Serializable {
 
 	public List<Projeto> getProjetos() {
 		if(projetos == null){
-			projetos = projetoService.getDao().findAll();
+			projetos = projetoService.crud().listAll();
 		}
 		return projetos;
 	}
 
 	public List<Usuario> getUsuarios() {
 		if(usuarios == null){
-			usuarios = usuarioService.getDao().findAll();
+			usuarios = usuarioService.crud().listAll();
 		}
 		return usuarios;
 	}

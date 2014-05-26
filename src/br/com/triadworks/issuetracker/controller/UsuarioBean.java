@@ -68,7 +68,7 @@ public class UsuarioBean extends BaseMBean<Usuario> implements Serializable {
 
 	@SecurityMethod(rolesAllowed = { "godlike" }, message = "Somente o usuário com perfil 'godlike' pode alterar usuários.")
 	public void preparaParaAlterar(Usuario usuario) {
-		this.usuario = getUsuarioService().getDao().get(usuario.getId()); // evita
+		this.usuario = getUsuarioService().crud().get(usuario.getId()); // evita
 		setUpdateState();
 	}
 

@@ -75,7 +75,7 @@ public class IssueBean extends BaseMBean<Issue> implements Serializable{
 	}
 	
 	public void preparaParaAlterar(Issue projeto) {
-		this.issue = issueService.getDao().get(projeto.getId()); // evita LazyInitializationException
+		this.issue = issueService.crud().get(projeto.getId()); // evita LazyInitializationException
 		setBeanState(CrudState.UPDATE);
 	}
 	

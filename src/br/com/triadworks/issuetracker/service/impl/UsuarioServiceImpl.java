@@ -7,6 +7,7 @@ import javax.inject.Named;
 import org.conventionsframework.exception.BusinessException;
 import org.conventionsframework.qualifier.PersistentClass;
 import org.conventionsframework.service.impl.BaseServiceImpl;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -23,7 +24,7 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario> implements Usua
 
 	@Override
 	public List<Usuario> listaTudo() {
-		return getDao().findAll();
+		return crud.listAll();
 	}
 
 	@Override
@@ -34,14 +35,10 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario> implements Usua
 		super.store(usuario);
 	}
 
-	@Override
-	public void remove(Usuario usuario) {
-		super.remove((Usuario)getDao().load(usuario.getId()));
-	}
 
 	@Override
 	public void atualiza(Usuario usuario) {
-		dao.saveOrUpdate(usuario);
+		crud.saveOrUpdate(usuario);
 		
 	}
 
@@ -58,15 +55,15 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario> implements Usua
 
 	@Override
 	public boolean isUsuarioExistente(Usuario usuario) {
-		DetachedCriteria dc = getDetachedCriteria(); 
+		Criteria crit = getCriteria(); 
 		//usando para ignorar id do usuario que estamos editando senão o rowCount retorna o proprio usuario
 		if(usuario.getId() != null){
-			dc.add(Restrictions.ne("id", usuario.getId()));
+			crit.add(Restrictions.ne("id", usuario.getId()));
 		}
 
 		if(usuario != null && !"".endsWith(usuario.getLogin())){
-			dc.add(Restrictions.ilike("login", usuario.getLogin(), MatchMode.EXACT));
-			return (dao.getRowCount(dc) > 0);
+			crit.add(Restrictions.ilike("login", usuario.getLogin(), MatchMode.EXACT));
+			return (crud.criteria(crit).count() > 0);
  		}
 		return false;
 	}

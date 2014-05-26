@@ -6,6 +6,7 @@ import javax.inject.Named;
 
 import org.conventionsframework.exception.BusinessException;
 import org.conventionsframework.service.impl.BaseServiceImpl;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -20,7 +21,7 @@ public class ProjetoServiceImpl extends BaseServiceImpl<Projeto> implements Proj
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Projeto> listaTudo() {
-		return getDao().findAll();
+		return crud.listAll();
 	}
 
 	@Override
@@ -31,14 +32,10 @@ public class ProjetoServiceImpl extends BaseServiceImpl<Projeto> implements Proj
 		super.store(projeto);
 	}
 
-	@Override
-	public void remove(Projeto projeto) {
-		super.remove((Projeto)getDao().load(projeto.getId()));
-	}
 
 	@Override
 	public void atualiza(Projeto projeto) {
-		dao.saveOrUpdate(projeto);
+		crud.saveOrUpdate(projeto);
 		
 	}
 
@@ -49,15 +46,15 @@ public class ProjetoServiceImpl extends BaseServiceImpl<Projeto> implements Proj
 
 	@Override
 	public boolean isProjetoExistente(Projeto projeto) {
-		DetachedCriteria dc = getDetachedCriteria(); 
+		Criteria crit = getCriteria(); 
 		//usando para ignorar id do projeto que estamos editando senão o rowCount retorna o proprio projeto
 		if(projeto.getId() != null){
-			dc.add(Restrictions.ne("id", projeto.getId()));
+			crit.add(Restrictions.ne("id", projeto.getId()));
 		}
 
 		if(projeto != null && !"".endsWith(projeto.getNome())){
-			dc.add(Restrictions.ilike("nome", projeto.getNome(), MatchMode.EXACT));
-			return (dao.getRowCount(dc) > 0);
+			crit.add(Restrictions.ilike("nome", projeto.getNome(), MatchMode.EXACT));
+			return (crud.criteria(crit).count() > 0);
  		}
 		return false;
 	}
